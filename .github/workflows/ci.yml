@@ -4,12 +4,25 @@ on:
     branches: [main]
   workflow_dispatch: {}
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    env:
+      CI: true
+      NX_DAEMON: false
+      FORCE_COLOR: 1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Verify Node
-        run: node --version
-      - name: Success
-        run: echo "✅ CI is working - ${{ github.sha }}"
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+      - name: Generate mock DB
+        run: npx tsx tools/mock-api/generate-db.ts
+      - name: Build all projects
+        run: npx nx run-many -t build --projects=shell,legacy-remote,modern-remote --configuration=production --parallel=3
+      - name: Verify build output
+        run: ls -la dist/apps/
