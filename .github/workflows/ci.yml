@@ -31,19 +31,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Clean npm cache
-        run: |
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
       - name: Install dependencies
         run: npm install --legacy-peer-deps
       - name: Generate mock DB
         run: npx tsx tools/mock-api/generate-db.ts
-      - name: Cache node_modules
-        uses: actions/cache@v4
+      - name: Save build artifact
+        uses: actions/upload-artifact@v4
         with:
+          name: node-modules
           path: node_modules
-          key: npm-${{ hashFiles('package-lock.json') }}
+          retention-days: 1
 
   lint:
     needs: install
@@ -53,10 +50,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: actions/cache@v4
+      - uses: actions/download-artifact@v4
         with:
-          path: node_modules
-          key: npm-${{ hashFiles('package-lock.json') }}
+          name: node-modules
       - name: Lint
         run: npx nx run-many -t lint --projects=shell,legacy-remote,modern-remote --parallel=3
 
@@ -68,10 +64,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: actions/cache@v4
+      - uses: actions/download-artifact@v4
         with:
-          path: node_modules
-          key: npm-${{ hashFiles('package-lock.json') }}
+          name: node-modules
       - name: Test
         run: npx nx run-many -t test --projects=legacy,shell,legacy-remote,modern-remote --parallel=4
 
@@ -89,10 +84,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - uses: actions/cache@v4
+      - uses: actions/download-artifact@v4
         with:
-          path: node_modules
-          key: npm-${{ hashFiles('package-lock.json') }}
+          name: node-modules
       - name: Build Apps
         run: npx nx run-many -t build --projects=shell,legacy-remote,modern-remote --configuration=production --parallel=3
 
