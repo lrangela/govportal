@@ -13,12 +13,11 @@ describe('mapLegacyPermit', () => {
             updatedAt: '2026-01-01T02:13:00.000Z',
         };
 
-        // Ajusta el shape esperado SOLO si tu Permit de dominio difiere
         expect(mapLegacyPermit(dto)).toEqual({
             id: 'p-1',
             citizenId: 'c-1',
-            type: 'CONSTRUCTION',
-            status: 'APPROVED',
+            type: 'construction',
+            status: 'approved',
             region: 'LIMA',
             createdAt: '2026-01-01T02:12:00.000Z',
             updatedAt: '2026-01-01T02:13:00.000Z',
