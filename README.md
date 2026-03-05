@@ -1,264 +1,385 @@
-﻿# GovPortal Frontend
+﻿# GovPortal
 
-Monorepo Nx con Angular 21 orientado a una arquitectura de microfrontends con `shell`, `legacy-remote` y `modern-remote`.
+**CI GitHub Pages**
 
-## Despliegue en GitHub Pages
+**URL:** https://lrangela.github.io/govportal/
 
-URL de despliegue (patron de este repo):
+English and Spanish documentation for the current Nx workspace. Documentación en inglés y español para el workspace actual de Nx.
 
-- `https://<OWNER>.github.io/govportal/`
+---
 
-El workflow de deploy (`.github/workflows/deploy.yml`) publica en Pages tras CI exitoso y ajusta:
+## English
 
-- `base href` para `/govportal/`.
-- `federation.manifest.json` para cargar remotes locales del artifact (`./legacy/remoteEntry.json` y `./modern/remoteEntry.json`).
-- `404.html` para fallback de rutas SPA en refresh/deep-link.
-- `out/api/*` con datos mock estaticos generados desde `tools/mock-api/db.json`.
-## Workspace actual
+### Overview
 
-Proyectos Nx verificados hoy:
+GovPortal is a multi-application Angular workspace built with Nx and Native Federation. It contains a main shell application that orchestrates two remote micro-frontends (legacy and modern) demonstrating incremental migration strategies and module federation patterns.
 
-- Aplicaciones: `shell`, `legacy-remote`, `modern-remote`
-- E2E: `shell-e2e`, `modern-remote-e2e`
-- Librerias: `domain`, `core`, `http`, `legacy`, `gov`
+**Project routes:**
 
-La entrada principal del sistema es `shell`. El host monta dos remotes:
+- **Repository:** https://github.com/lrangela/govportal
+- **Deployment:** https://lrangela.github.io/govportal/
 
-- `/legacy/*` -> `legacy-remote`
-- `/modern/*` -> `modern-remote`
+**System split and route examples:**
 
-## Arquitectura
+**Shell Application (main entry point):**
+- Local: `http://localhost:4200/`
+- Deployed: https://lrangela.github.io/govportal/
 
-### Flujo de alto nivel
+**Legacy Remote (micro-frontend):**
+- Local: `http://localhost:4201/`
+- Deployed: https://lrangela.github.io/govportal/legacy/
 
-```text
-shell
-  -> legacy-remote
-  -> modern-remote
+**Modern Remote (micro-frontend):**
+- Local: `http://localhost:4202/`
+- Deployed: https://lrangela.github.io/govportal/modern/
 
-legacy-remote / modern-remote
-  -> data-access
-  -> /api/*
-  -> json-server mock API
+The repository is structured as a frontend architecture demo focused on:
+
+- Angular 21 standalone applications with zoneless change detection.
+- Nx 22 workspace with project boundaries and affected pipelines.
+- Native Federation for module federation and micro-frontend composition.
+- Signal-first state management with `@ngrx/signals` in key domains.
+- Hash-based routing for GitHub Pages compatibility.
+- CI/CD automation for lint, test, build, and GitHub Pages deployment.
+
+### Current Workspace Structure
+
+```
+govportal/
+├── apps/
+│   ├── shell              # Main shell application (host)
+│   ├── shell-e2e          # E2E tests for shell
+│   ├── legacy             # Legacy remote micro-frontend
+│   ├── modern             # Modern remote micro-frontend
+│   └── modern-e2e         # E2E tests for modern
+├── libs/
+│   ├── core/              # Core utilities and HTTP configuration
+│   │   ├── http           # HTTP client setup and interceptors
+│   │   └── src            # Core shared code
+│   ├── data-access/       # Domain state and API integration
+│   │   ├── gov            # Government/domain data access
+│   │   └── legacy         # Legacy system data adapters
+│   └── src                # Shared library source
+├── tools/
+│   └── mock-api/          # Mock API generation and export scripts
+├── docs/
+│   └── adr/               # Architecture Decision Records
+└── .github/workflows/     # CI/CD pipeline definitions
 ```
 
-### Capas
+### Architecture Notes
 
-- `apps/shell`
-  - Host de microfrontends con Native Federation.
-  - Redirige `/` a `/legacy`.
-- `apps/legacy`
-  - Remote basado en facades y API clients legacy.
-- `apps/modern`
-  - Remote basado en stores con `@ngrx/signals`.
-  - Hoy sigue consumiendo datos a traves de clients legacy y mappers compartidos.
-- `libs/src`
-  - Dominio compartido expuesto como `@gov/domain`.
-- `libs/data-access/legacy`
-  - DTOs, API clients, mappers y facades.
-- `libs/data-access/gov`
-  - Stores para la UI moderna.
-- `libs/core`
-  - Componentes reutilizables como `PageHeaderComponent`.
-- `libs/core/http`
-  - Infraestructura HTTP compartida.
+- All apps bootstrap with `provideZonelessChangeDetection()` for optimal performance.
+- Modern Angular APIs are standard: `OnPush`, Signal `input()`/`output()`, and `@defer` blocks for rendering optimization.
+- Routing uses `withHashLocation()` for GitHub Pages static hosting compatibility.
+- Shell application acts as the host, loading `legacy` and `modern` remotes via Native Federation.
+- `libs/core/*` owns HTTP configuration, interceptors, and cross-cutting concerns.
+- `libs/data-access/*` owns API integration, parsing, storage, and state updates using signals.
+- Remote applications demonstrate different implementation approaches (legacy vs modern patterns).
+- Mock API with `json-server` provides realistic demo data for development and testing.
 
-## Rutas activas
+### Tooling Status
 
-Rutas del host:
+Testing and verification are standardized across the entire workspace.
 
-- `/legacy/citizens`
-- `/legacy/citizens/:id`
-- `/legacy/permits`
-- `/legacy/applications`
-- `/modern/citizens`
-- `/modern/citizens/:id`
-- `/modern/permits`
-- `/modern/applications`
+- All projects use **Vitest** with project-level `vitest.config.ts`.
+- End-to-end coverage uses **Playwright** with one root config and one logical project per app.
+- `npm run typecheck`, `npm run lint`, `npm run test`, and `npm run build` are valid workspace-level checks.
+- `npm run e2e` validates the shell and remote applications navigation flows.
+- CI runs affected targets on pull requests and full workspace verification on push/workflow dispatch.
+- No Jest dependencies remain in the workspace.
+- `shell`, `legacy`, and `modern` all build successfully for production.
 
-Comportamiento verificado en codigo:
+### Tech Stack
 
-- El `shell` carga remotos con `loadRemoteModule`.
-- La raiz `/` redirige a `/legacy`.
-- `legacy` y `modern` exponen el selector `Source` para cambiar entre arquitecturas.
-- El cambio de `Source` conserva subruta y query params.
-- Ambos remotes tienen lista y detalle de ciudadanos.
-- El detalle moderno agrega enlaces a `permits` y `applications` usando query params.
+| Area | Current choice |
+|------|----------------|
+| Frontend | Angular 21 |
+| Workspace | Nx 22 |
+| Module Federation | Native Federation |
+| Styling | SCSS |
+| State | Angular signals + `@ngrx/signals` |
+| Testing | Vitest (jsdom) |
+| E2E | Playwright |
+| CI/CD | GitHub Actions |
+| Deployment | GitHub Pages |
 
-## Datos y ACL
-
-La UI no consume DTOs legacy directamente.
-
-- `libs/data-access/legacy` encapsula `Legacy*ApiClient`, DTOs y mappers.
-- `legacy-remote` consume facades como `CitizensFacade`.
-- `modern-remote` consume stores como `CitizensStore`.
-- `CitizensStore` todavia usa `LegacyCitizensApiClient` y `mapLegacyCitizen`, asi que la separacion de backend moderno aun esta pendiente.
-
-ADR relacionadas:
-
-- [ADR 0001](docs/adr/0001-data-access-anti-corruption-layer.md)
-- [ADR 0002](docs/adr/0002-project-evolution-and-architectural-decisions.md)
-
-## Como correr el proyecto
-
-### Requisitos
-
-- Node.js 20+
-- npm
-
-### Instalacion
+### Local Development
 
 ```bash
+# Install dependencies
 npm install
-```
 
-### Mock API
+# Type checking
+npm run typecheck
 
-```bash
+# Linting
+npm run lint
+
+# Unit tests
+npm run test
+
+# Build all projects
+npm run build
+
+# E2E tests (requires running apps)
+npm run e2e
+
+# Serve all MFEs together
+npm run start:mfes
+
+# Or serve individually
+npx nx serve shell
+npx nx serve legacy
+npx nx serve modern
+
+# Start mock API
 npm run dev:mock
 ```
 
-O por separado:
+**Environment variants currently used by all apps:**
+
+- `development` - Local development with proxy to mock API.
+- `production` - GitHub Pages deployment with hash routing.
+
+**Mock API Setup:**
+
+The project uses `json-server` with a generated database for demo data:
 
 ```bash
+# Generate mock database
 npm run dev:db
+
+# Start mock API server (port 3001)
 npm run dev:api
-```
 
-La API mock escucha en `http://localhost:3001` y `proxy.conf.json` reescribe `/api` hacia ese host (solo para desarrollo local con `serve`).
-
-### Microfrontends
-
-```bash
-npm run start:mfes
-```
-
-Puertos esperados:
-
-- `shell`: `http://localhost:4200`
-- `legacy-remote`: `http://localhost:4201`
-- `modern-remote`: `http://localhost:4202`
-
-Flujo recomendado:
-
-Terminal 1:
-
-```bash
+# Or both in sequence
 npm run dev:mock
 ```
 
-Terminal 2:
+### Demo Access For GitHub Pages
+
+The published demo exposes sample citizen data and government procedures for portfolio demonstration.
+
+**Sample data includes:**
+
+- Citizen records with permit applications.
+- Regional government procedures (AREQUIPA, LIMA, etc.).
+- Application status tracking (draft, submitted, under_review, completed).
+- Permit management (transport, business, construction).
+
+### CI/CD
+
+**`.github/workflows/ci.yml`**
+
+- Runs on `push` to `main`, `pull_request`, and manual `workflow_dispatch`.
+- Executes `npm install --legacy-peer-deps` for dependency resolution.
+- Generates mock database for build-time integration.
+- Runs `lint` in parallel across shell, legacy, and modern projects.
+- Runs `test` with Vitest across all data-access and feature libraries.
+- Runs `build` for all three applications with production configuration.
+- Stages combined artifact with proper base-href patching for GitHub Pages.
+- Exports mock API data to static JSON for client-side consumption.
+- Deploys to GitHub Pages with automatic manifest federation.
+
+### Documentation
+
+- **Docs index:** `./docs/`
+- **Architecture Decision Records:** `./docs/adr/`
+
+### Known Gaps
+
+- Mock API is a demo backend and not a production-owned service.
+- Static deployment uses hash routing which changes URL structure (`/#/route`).
+- Observability and release governance are still pending.
+- E2E depends on mock API availability and deterministic data generation.
+- Native Federation configuration requires careful version alignment across remotes.
+
+---
+
+## Español
+
+### Resumen
+
+GovPortal es un workspace de Angular multi-aplicación construido con Nx y Native Federation. Incluye una aplicación shell principal que orquesta dos micro-frontends remotos (legacy y modern) demostrando estrategias de migración incremental y patrones de federación de módulos.
+
+**Rutas del proyecto:**
+
+- **Repositorio:** https://github.com/lrangela/govportal
+- **Despliegue:** https://lrangela.github.io/govportal/
+
+**División de sistemas y ejemplos de rutas:**
+
+**Aplicación Shell (punto de entrada principal):**
+- Local: `http://localhost:4200/`
+- Desplegado: https://lrangela.github.io/govportal/
+
+**Legacy Remote (micro-frontend):**
+- Local: `http://localhost:4201/`
+- Desplegado: https://lrangela.github.io/govportal/legacy/
+
+**Modern Remote (micro-frontend):**
+- Local: `http://localhost:4202/`
+- Desplegado: https://lrangela.github.io/govportal/modern/
+
+El repositorio está orientado a mostrar una arquitectura frontend con foco en:
+
+- Aplicaciones Angular 21 standalone con zoneless change detection.
+- Workspace Nx 22 con límites de proyecto y pipelines affected.
+- Native Federation para federación de módulos y composición de micro-frontends.
+- Estado basado en signals con `@ngrx/signals` en dominios clave.
+- Routing basado en hash para compatibilidad con GitHub Pages.
+- Automatización de CI/CD para lint, test, build y despliegue a GitHub Pages.
+
+### Estructura Actual
+
+```
+govportal/
+├── apps/
+│   ├── shell              # Aplicación shell principal (host)
+│   ├── shell-e2e          # Tests E2E para shell
+│   ├── legacy             # Micro-frontend legacy remoto
+│   ├── modern             # Micro-frontend moderno remoto
+│   └── modern-e2e         # Tests E2E para modern
+├── libs/
+│   ├── core/              # Utilidades core y configuración HTTP
+│   │   ├── http           # Setup de HTTP e interceptores
+│   │   └── src            # Código core compartido
+│   ├── data-access/       # Estado de dominio e integración API
+│   │   ├── gov            # Data access de dominio gubernamental
+│   │   └── legacy         # Adaptadores de sistema legacy
+│   └── src                # Código fuente de librerías compartidas
+├── tools/
+│   └── mock-api/          # Scripts de generación y export de API mock
+├── docs/
+│   └── adr/               # Architecture Decision Records
+└── .github/workflows/     # Definiciones de pipelines CI/CD
+```
+
+### Notas de Arquitectura
+
+- Todas las apps arrancan con `provideZonelessChangeDetection()` para rendimiento óptimo.
+- Se utilizan APIs modernas de Angular como estándar: `OnPush`, Signal `input()`/`output()`, y bloques `@defer` para optimización de renderizado.
+- El routing usa `withHashLocation()` para compatibilidad con hosting estático de GitHub Pages.
+- La aplicación shell actúa como host, cargando los remotos `legacy` y `modern` vía Native Federation.
+- `libs/core/*` concentra configuración HTTP, interceptores y preocupaciones transversales.
+- `libs/data-access/*` concentra integración API, parseo, almacenamiento y actualización de estado usando signals.
+- Las aplicaciones remotas demuestran diferentes enfoques de implementación (patrones legacy vs modernos).
+- Mock API con `json-server` provee datos demo realistas para desarrollo y testing.
+
+### Estado Actual del Tooling
+
+Testing y verificación quedaron estandarizados en todo el workspace.
+
+- Todos los proyectos usan **Vitest** con `vitest.config.ts` a nivel de proyecto.
+- La cobertura end-to-end usa **Playwright** con una configuración raíz y un proyecto lógico por app.
+- `npm run typecheck`, `npm run lint`, `npm run test` y `npm run build` sirven como chequeos de workspace completo.
+- `npm run e2e` valida los flujos de navegación de shell y aplicaciones remotas.
+- El CI ejecuta affected en pull requests y verificación completa del workspace en push/manual.
+- No quedan dependencias de Jest en el workspace.
+- `shell`, `legacy` y `modern` compilan correctamente para producción.
+
+### Stack Tecnológico
+
+| Área | Elección actual |
+|------|-----------------|
+| Frontend | Angular 21 |
+| Workspace | Nx 22 |
+| Module Federation | Native Federation |
+| Estilos | SCSS |
+| Estado | Angular signals + `@ngrx/signals` |
+| Testing | Vitest (jsdom) |
+| E2E | Playwright |
+| CI/CD | GitHub Actions |
+| Despliegue | GitHub Pages |
+
+### Desarrollo Local
 
 ```bash
+# Instalar dependencias
+npm install
+
+# Verificación de tipos
+npm run typecheck
+
+# Linting
+npm run lint
+
+# Tests unitarios
+npm run test
+
+# Build de todos los proyectos
+npm run build
+
+# Tests E2E (requiere apps corriendo)
+npm run e2e
+
+# Servir todos los MFEs juntos
 npm run start:mfes
+
+# O servir individualmente
+npx nx serve shell
+npx nx serve legacy
+npx nx serve modern
+
+# Iniciar API mock
+npm run dev:mock
 ```
 
-Luego abre `http://localhost:4200`.
+**Variantes de entorno usadas actualmente por todas las apps:**
 
-## Targets utiles
+- `development` - Desarrollo local con proxy a mock API.
+- `production` - Despliegue en GitHub Pages con hash routing.
 
-Ejemplos verificados con Nx:
+**Configuración de Mock API:**
 
-```bash
-npx nx show projects --json
-npx nx run shell:serve
-npx nx run legacy-remote:serve
-npx nx run modern-remote:serve
-npx nx test legacy
-npx nx e2e shell-e2e
-npx nx e2e modern-remote-e2e
-```
-
-## Testing
-
-Cobertura verificada hoy:
-
-- `legacy` tiene target `test` con Vitest.
-- `shell`, `legacy-remote` y `modern-remote` tienen target `test` con Vitest.
-- `shell-e2e` y `modern-remote-e2e` tienen target `e2e` con Playwright.
-
-Limitaciones actuales observables:
-
-- `gov` no expone target `test`.
-- `modern-remote-e2e` solo contiene el spec inicial `src/example.spec.ts`.
-- `shell-e2e` contiene el escenario mas representativo hoy: navegacion entre MFEs y cambio de `Source`.
-
-## Convenciones tecnicas vigentes
-
-- Angular standalone components.
-- `ChangeDetectionStrategy.OnPush` en pantallas principales.
-- Control flow moderno con `@if` y `@for`.
-- Native Federation con `@angular-architects/native-federation`.
-- Estado legacy con `signals` + `effect`.
-- Estado moderno con `@ngrx/signals` + `rxMethod`.
-- `/api/*` como contrato de acceso a datos para desarrollo local.
-
-## Proxy local vs CI/CD (GitHub Pages)
-
-`proxy.conf.json` solo existe en `nx serve`/dev-server. En GitHub Pages (hosting estatico) no hay proxy runtime, por eso no debe dependerse de proxy en runtime.
-
-Implementacion actual:
-
-1. El frontend consume endpoints relativos (`api/citizens`, `api/permits`, `api/applications`) para respetar el `base href`.
-2. En local, con `<base href="/">`, esas URLs resuelven a `/api/*` y funcionan con `proxy.conf.json`.
-3. En Pages, con `<base href="/govportal/">`, esas URLs resuelven a `/govportal/api/*`.
-4. El deploy genera `db.json` de forma determinista y exporta API mock estatica en `out/api/*`.
-5. El deploy copia `out/index.html` como `out/404.html` para evitar errores de URL no encontrada en rutas SPA.
-
-## CI/CD
-
-Puntos relevantes de pipeline:
-
-1. CI (`.github/workflows/ci.yml`) ejecuta `npx tsx tools/mock-api/generate-db.ts` en el job `build`.
-2. E2E en CI vuelve a generar `db.json`, levanta `json-server` y valida navegacion real entre shell/remotes.
-3. Deploy (`.github/workflows/deploy.yml`) genera `db.json`, construye apps y publica Pages con remotos + API mock estatica.
-## Troubleshooting
-
-### 1) `Port 4200`, `4201` o `4202` ocupado
-
-- Cierra procesos previos.
-- O ajusta los puertos en los targets `serve-original`.
-
-### 2) `/api/*` falla o no hay datos
-
-- Verifica `http://localhost:3001`.
-- Regenera la base mock:
+El proyecto usa `json-server` con una base de datos generada para datos demo:
 
 ```bash
+# Generar base de datos mock
 npm run dev:db
-```
 
-### 3) Error de rutas en el host
-
-Las rutas de negocio viven bajo prefijo:
-
-- `/legacy/...`
-- `/modern/...`
-
-### 4) Cambios en el mock no se reflejan
-
-- Regenera `tools/mock-api/db.json`.
-- Reinicia `json-server`.
-
-## Scripts disponibles
-
-```bash
-npm run dev:db
+# Iniciar servidor mock API (puerto 3001)
 npm run dev:api
+
+# O ambos en secuencia
 npm run dev:mock
-npm run start:mfes
 ```
 
+### Acceso Demo Para GitHub Pages
 
+La demo publicada expone datos de ciudadanos y procedimientos gubernamentales para demostración de portafolio.
 
-## Optimizacion de red y Troubleshooting
+**Datos de ejemplo incluyen:**
 
-Se han aplicado medidas para reducir el consumo inesperado de ancho de banda detectado durante el desarrollo:
+- Registros de ciudadanos con solicitudes de permisos.
+- Procedimientos de gobierno regional (AREQUIPA, LIMA, etc.).
+- Seguimiento de estado de aplicaciones (draft, submitted, under_review, completed).
+- Gestión de permisos (transport, business, construction).
 
-1. **Telemetria**: Se ha desactivado globalmente la telemetria de Angular (\
-g analytics disable\).
-2. **Native Federation**: Se han fijado los rangos de versiones (\~21.1.0\, \~7.8.0\) en \ederation.config.js\ para evitar consultas automáticas al registro de npm durante el build.
-3. **Nx Console**: Si se percibe lentitud o descarga de binarios, se recomienda desactivar las actualizaciones automáticas de la extensión de Nx en el IDE.
-4. **GitHub CLI**: Se recomienda instalar el binario \gh\ o deshabilitar extensiones que lo invoquen para evitar errores recurrentes en logs.
+### CI/CD
 
-Para mas detalles, ver [ADR 0003: Optimizacion del consumo de red y estabilidad del build](docs/adr/0003-optimization-of-network-usage-and-build-stability.md).
+**`.github/workflows/ci.yml`**
+
+- Corre en `push` a `main`, `pull_request`, y `workflow_dispatch` manual.
+- Ejecuta `npm install --legacy-peer-deps` para resolución de dependencias.
+- Genera base de datos mock para integración en build-time.
+- Ejecuta `lint` en paralelo entre shell, legacy y modern.
+- Ejecuta `test` con Vitest en todas las librerías data-access y features.
+- Ejecuta `build` para las tres aplicaciones con configuración de producción.
+- Prepara artefacto combinado con patching de base-href para GitHub Pages.
+- Exporta datos de mock API a JSON estático para consumo del cliente.
+- Despliega a GitHub Pages con federación automática del manifiesto.
+
+### Documentación
+
+- **Índice de docs:** `./docs/`
+- **Architecture Decision Records:** `./docs/adr/`
+
+### Brechas Actuales
+
+- Mock API es un backend de demo y no un servicio propio de producción.
+- El despliegue estático usa hash routing lo que cambia la estructura de URLs (`/#/ruta`).
+- Falta observabilidad y gobierno de release.
+- El E2E depende de la disponibilidad del mock API y generación determinista de datos.
+- La configuración de Native Federation requiere alineación cuidadosa de versiones entre remotos.
