@@ -346,3 +346,4 @@ jobs:
             [[ -f "$pidfile" ]] || continue
             kill "$(cat "$pidfile")" 2>/dev/null || true
           done
+ 
