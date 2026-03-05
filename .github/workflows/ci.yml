@@ -7,4 +7,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Success"
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Verify Node
+        run: node --version
+      - name: Success
+        run: echo "✅ CI is working - ${{ github.sha }}"
