@@ -1,25 +1,16 @@
-﻿name: Deploy Pages
+name: Deploy Pages
 
 on:
-  workflow_dispatch: {}
   workflow_run:
     workflows: ["CI"]
     types: [completed]
     branches: [main]
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+  workflow_dispatch: {}
 
 permissions:
   contents: read
   pages: write
   id-token: write
-
-env:
-  CI: true
-  NX_DAEMON: false
-  FORCE_COLOR: 1
 
 jobs:
   deploy:
@@ -30,13 +21,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/download-artifact@v4
         with:
-          node-version: 22
-          cache: npm
-      - run: npm ci --prefer-offline --no-audit
-      - run: npx tsx tools/mock-api/generate-db.ts
-      - run: npx nx run-many -t build --projects=shell,legacy-remote,modern-remote --configuration=production --parallel=3
+          name: dist-apps
+          path: dist/apps
       - name: Stage Pages artifact
         shell: bash
         env:

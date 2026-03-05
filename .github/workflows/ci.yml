@@ -1,20 +1,33 @@
 name: CI
+
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch: {}
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  CI: true
+  NX_DAEMON: false
+  FORCE_COLOR: 1
+
 jobs:
-  build:
+  pipeline:
     runs-on: ubuntu-latest
-    env:
-      CI: true
-      NX_DAEMON: false
-      FORCE_COLOR: 1
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
@@ -22,7 +35,15 @@ jobs:
         run: npm ci --prefer-offline --no-audit
       - name: Generate mock DB
         run: npx tsx tools/mock-api/generate-db.ts
-      - name: Build all projects
+      - name: Run Lint
+        run: npx nx run-many -t lint --projects=shell,legacy-remote,modern-remote --parallel=3
+      - name: Run Tests
+        run: npx nx run-many -t test --projects=legacy,shell,legacy-remote,modern-remote --parallel=4
+      - name: Build Apps
         run: npx nx run-many -t build --projects=shell,legacy-remote,modern-remote --configuration=production --parallel=3
-      - name: Verify build output
-        run: ls -la dist/apps/
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-apps
+          path: dist/apps
+          retention-days: 1
