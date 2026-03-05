@@ -3,7 +3,7 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter, withHashLocation } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { apiBaseUrlInterceptor } from '@gov/core/http';
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(),
-    provideRouter(appRoutes, withHashLocation()),
+    provideRouter(appRoutes),
     provideHttpClient(withInterceptors([apiBaseUrlInterceptor])),
   ],
 };

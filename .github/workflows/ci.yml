@@ -56,8 +56,14 @@ jobs:
           cp -R dist/apps/shell/browser/. out/
           cp -R dist/apps/legacy/browser/. out/legacy/
           cp -R dist/apps/modern/browser/. out/modern/
+          
+          # Create 404.html for SPA routing support (redirects all to index.html)
           cp out/index.html out/404.html
+          
+          # Export mock API
           node tools/mock-api/export-pages-api.mjs tools/mock-api/db.json out
+          
+          # Update federation manifest
           node -e "
             const fs = require('fs');
             const repo = process.env.REPO_NAME;
@@ -65,13 +71,21 @@ jobs:
             manifest['legacy-remote'] = './legacy/remoteEntry.json';
             manifest['modern-remote'] = './modern/remoteEntry.json';
             fs.writeFileSync('out/federation.manifest.json', JSON.stringify(manifest, null, 2));
+          "
+          
+          # Patch base href in all index.html files
+          node -e "
+            const fs = require('fs');
+            const repo = process.env.REPO_NAME;
+            const baseHref = '/' + repo + '/';
             const patch = (f) => {
               if(!fs.existsSync(f)) return;
               let h = fs.readFileSync(f, 'utf8');
-              h = h.replace(/<base href=\"\/\"/g, '<base href=\"/' + repo + '/\"');
+              h = h.replace('<base href=\"/\">', '<base href=\"' + baseHref + '\">');
               fs.writeFileSync(f, h);
             };
             patch('out/index.html');
+            patch('out/404.html');
             patch('out/legacy/index.html');
             patch('out/modern/index.html');
           "
