@@ -3,10 +3,10 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { API_BASE_URL, apiBaseUrlInterceptor } from '@gov/core/http';
+import { apiBaseUrlInterceptor } from '@gov/core/http';
 import { appRoutes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -14,8 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideClientHydration(),
-    provideRouter(appRoutes),
-    { provide: API_BASE_URL, useValue: '' },
+    provideRouter(appRoutes, withHashLocation()),
     provideHttpClient(withInterceptors([apiBaseUrlInterceptor])),
   ],
 };
