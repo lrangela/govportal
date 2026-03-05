@@ -1,41 +1,348 @@
 name: CI
 
 on:
-  push:
-    branches:
-      - master
   pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
-  actions: read
   contents: read
+  actions: read
+
+env:
+  CI: true
+  NX_DAEMON: false
+  FORCE_COLOR: 1
 
 jobs:
-  main:
+  lint:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          filter: tree:0
           fetch-depth: 0
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      # Connect your workspace by running "nx connect" and uncomment this line to enable task distribution
-      # - run: npx nx start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="build"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v4
+      - name: Setup Node LTS
+        uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'npm'
+          node-version: 22
+          cache: npm
 
-      - run: npm ci
+      - name: Restore Nx cache
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.ref_name }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            nx-${{ runner.os }}-
 
-      # Prepend any command with "nx record --" to record its logs to Nx Cloud
-      # - run: npx nx record -- echo Hello World
-      - run: npx nx run-many -t lint test build
-      # Nx Cloud recommends fixes for failures to help you get CI green faster. Learn more: https://nx.dev/ci/features/self-healing-ci
-      - run: npx nx fix-ci
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Fetch main for nx affected
+        if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --prune --depth=1 origin main
+
+      - name: Run lint
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            npx nx affected -t lint --base=origin/main --head="${GITHUB_SHA}" --parallel=3
+          else
+            npx nx run-many -t lint --projects=shell,legacy-remote,modern-remote --parallel=3
+          fi
+
+  unit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Restore Nx cache
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.ref_name }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            nx-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Generate deterministic mock DB
+        run: npx tsx tools/mock-api/generate-db.ts
+
+      - name: Fetch main for nx affected
+        if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --prune --depth=1 origin main
+
+      - name: Run unit tests
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            npx nx affected -t test --base=origin/main --head="${GITHUB_SHA}" --parallel=4
+          else
+            npx nx run-many -t test --projects=legacy,shell,legacy-remote,modern-remote --parallel=4
+          fi
+
+      - name: Upload coverage
         if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ github.run_id }}
+          path: coverage
+          if-no-files-found: warn
+          retention-days: 7
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Restore Nx cache
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.ref_name }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            nx-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Fetch main for nx affected
+        if: github.event_name == 'pull_request'
+        run: git fetch --no-tags --prune --depth=1 origin main
+
+      - name: Build production apps
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
+            AFFECTED_APPS="$(
+              npx nx show projects --affected --withTarget=build --base=origin/main --head="${GITHUB_SHA}" --json \
+              | tr -d '[]"' \
+              | tr ',' '\n' \
+              | grep -E '^(shell|legacy-remote|modern-remote)$' \
+              | paste -sd, -
+            )" || true
+
+            if [[ -z "${AFFECTED_APPS:-}" ]]; then
+              echo "No deployable MFEs affected in this PR."
+              exit 0
+            fi
+
+            echo "Affected build apps: ${AFFECTED_APPS}"
+            npx nx run-many -t build --projects="${AFFECTED_APPS}" --configuration=production --parallel=3
+          else
+            npx nx run-many -t build --projects=shell,legacy-remote,modern-remote --configuration=production --parallel=3
+          fi
+
+      - name: Debug dist outputs
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          echo "dist/apps:"
+          find dist/apps -maxdepth 3 -type f | sort || true
+          echo
+          echo "shell manifest (source):"
+          cat apps/shell/public/federation.manifest.json || true
+
+      - name: Upload build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-apps-${{ github.run_id }}
+          path: dist/apps
+          if-no-files-found: warn
+          retention-days: 7
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: [lint, unit, build]
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Restore Nx cache
+        uses: actions/cache@v4
+        with:
+          path: .nx/cache
+          key: nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ github.ref_name }}
+          restore-keys: |
+            nx-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+            nx-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium firefox webkit
+
+      - name: Create CI Playwright config
+        shell: bash
+        run: |
+          cat > apps/shell-e2e/playwright.ci.config.ts <<'EOF'
+          import baseConfig from './playwright.config';
+
+          export default {
+            ...baseConfig,
+            retries: 2,
+            reporter: [
+              ['html', { outputFolder: '../../dist/.playwright/apps/shell-e2e/playwright-report', open: 'never' }],
+              ['list']
+            ],
+            use: {
+              ...(baseConfig.use ?? {}),
+              baseURL: process.env['BASE_URL'] || 'http://127.0.0.1:4200',
+              trace: 'on-first-retry',
+              video: 'retain-on-failure',
+              screenshot: 'only-on-failure',
+            },
+          };
+          EOF
+
+      - name: Start backend and MFEs
+        shell: bash
+        run: |
+          set -euxo pipefail
+          mkdir -p /tmp/govportal
+
+          npx tsx tools/mock-api/generate-db.ts
+
+          nohup npx json-server tools/mock-api/db.json --port 3001 \
+            >/tmp/govportal/mock-api.log 2>&1 &
+          echo $! >/tmp/govportal/mock-api.pid
+
+          nohup npx nx serve shell \
+            >/tmp/govportal/shell.log 2>&1 &
+          echo $! >/tmp/govportal/shell.pid
+
+          nohup npx nx serve legacy-remote \
+            >/tmp/govportal/legacy.log 2>&1 &
+          echo $! >/tmp/govportal/legacy.pid
+
+          nohup npx nx serve modern-remote \
+            >/tmp/govportal/modern.log 2>&1 &
+          echo $! >/tmp/govportal/modern.pid
+
+      - name: Wait for services
+        shell: bash
+        run: |
+          set -euxo pipefail
+
+          wait_for() {
+            local name="$1"
+            local url="$2"
+
+            for i in {1..90}; do
+              if curl -fsS "$url" >/dev/null; then
+                echo "$name is ready: $url"
+                return 0
+              fi
+              sleep 2
+            done
+
+            echo "Timed out waiting for $name: $url"
+            return 1
+          }
+
+          wait_for "Mock API" "http://127.0.0.1:3001/citizens"
+          wait_for "Legacy remote" "http://127.0.0.1:4201/remoteEntry.json"
+          wait_for "Modern remote" "http://127.0.0.1:4202/remoteEntry.json"
+          wait_for "Shell" "http://127.0.0.1:4200"
+
+      - name: Run Playwright
+        env:
+          BASE_URL: http://127.0.0.1:4200
+        run: npx playwright test --config apps/shell-e2e/playwright.ci.config.ts
+
+      - name: Debug running services
+        if: failure()
+        shell: bash
+        run: |
+          set +e
+          echo "Open ports:"
+          ss -ltnp | grep -E ':3001|:4200|:4201|:4202' || true
+          echo
+          echo "Shell manifest (source):"
+          cat apps/shell/public/federation.manifest.json || true
+          echo
+          echo "HTTP checks:"
+          curl -fsS http://127.0.0.1:4200 || true
+          curl -fsS http://127.0.0.1:4201/remoteEntry.json || true
+          curl -fsS http://127.0.0.1:4202/remoteEntry.json || true
+          echo
+          echo "Tail logs:"
+          tail -n 200 /tmp/govportal/mock-api.log || true
+          tail -n 200 /tmp/govportal/shell.log || true
+          tail -n 200 /tmp/govportal/legacy.log || true
+          tail -n 200 /tmp/govportal/modern.log || true
+
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-shell-e2e-${{ github.run_id }}
+          path: |
+            dist/.playwright/apps/shell-e2e
+            playwright-report
+            test-results
+            /tmp/govportal/*.log
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Stop background services
+        if: always()
+        shell: bash
+        run: |
+          set +e
+          for pidfile in /tmp/govportal/*.pid; do
+            [[ -f "$pidfile" ]] || continue
+            kill "$(cat "$pidfile")" 2>/dev/null || true
+          done

@@ -1,0 +1,1384 @@
+{
+  "citizens": [
+    {
+      "id": "b438b6fa-765b-4706-8b22-88adb9b5534a",
+      "firstName": "Katherine",
+      "lastName": "Kautzer",
+      "email": "Louis_Johns@yahoo.com",
+      "region": "PIURA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:00:00.000Z",
+      "updatedAt": "2026-01-01T00:01:00.000Z"
+    },
+    {
+      "id": "91d98546-ae8a-499a-ad1c-3391eab09822",
+      "firstName": "Kayden",
+      "lastName": "Spinka",
+      "email": "Jaime_Hermiston-Ruecker69@hotmail.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:02:00.000Z",
+      "updatedAt": "2026-01-01T00:03:00.000Z"
+    },
+    {
+      "id": "58a125ad-8d65-452d-9589-80fe348ef49c",
+      "firstName": "Leonard",
+      "lastName": "Block-Keebler",
+      "email": "Betty75@gmail.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:04:00.000Z",
+      "updatedAt": "2026-01-01T00:05:00.000Z"
+    },
+    {
+      "id": "d2c44a1a-eb77-4c91-99d5-ec9c1dde2126",
+      "firstName": "Dallas",
+      "lastName": "Schowalter",
+      "email": "Kristofer_Hoeger@gmail.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:06:00.000Z",
+      "updatedAt": "2026-01-01T00:07:00.000Z"
+    },
+    {
+      "id": "7181afc9-1ba0-4c86-9c67-25d26f3ee178",
+      "firstName": "Beulah",
+      "lastName": "Tremblay",
+      "email": "Kamille_Kuhic37@gmail.com",
+      "region": "CUSCO",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:08:00.000Z",
+      "updatedAt": "2026-01-01T00:09:00.000Z"
+    },
+    {
+      "id": "5cc37b63-fad0-4481-9f35-3134a4505829",
+      "firstName": "Spencer",
+      "lastName": "Sanford",
+      "email": "Savanah.Keeling-Swaniawski92@gmail.com",
+      "region": "PIURA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:10:00.000Z",
+      "updatedAt": "2026-01-01T00:11:00.000Z"
+    },
+    {
+      "id": "d190b013-e589-439a-b467-e9f8807e3065",
+      "firstName": "Mario",
+      "lastName": "Schulist",
+      "email": "Olga_Wehner@hotmail.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:12:00.000Z",
+      "updatedAt": "2026-01-01T00:13:00.000Z"
+    },
+    {
+      "id": "55edbf63-1421-4959-b3a3-4b858be93bc3",
+      "firstName": "Dave",
+      "lastName": "Oberbrunner-Rutherford",
+      "email": "Renee.Bogisich@yahoo.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:14:00.000Z",
+      "updatedAt": "2026-01-01T00:15:00.000Z"
+    },
+    {
+      "id": "363d74e5-e0b7-4700-b5f9-59325d84fd5f",
+      "firstName": "Gussie",
+      "lastName": "Gislason",
+      "email": "Tricia37@gmail.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:16:00.000Z",
+      "updatedAt": "2026-01-01T00:17:00.000Z"
+    },
+    {
+      "id": "ed4811d6-af30-40be-8768-da3c2293b54f",
+      "firstName": "Preston",
+      "lastName": "O'Conner",
+      "email": "Edwin61@yahoo.com",
+      "region": "PIURA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:18:00.000Z",
+      "updatedAt": "2026-01-01T00:19:00.000Z"
+    },
+    {
+      "id": "0fee6b36-d2e7-464e-88cd-e4597e6796f1",
+      "firstName": "Erin",
+      "lastName": "Barton",
+      "email": "Marshall_Maggio67@yahoo.com",
+      "region": "AREQUIPA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:20:00.000Z",
+      "updatedAt": "2026-01-01T00:21:00.000Z"
+    },
+    {
+      "id": "b5ca08d9-28c1-4d28-b63a-0c8e802c7754",
+      "firstName": "Lydia",
+      "lastName": "Will",
+      "email": "Leland_Bauch79@yahoo.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:22:00.000Z",
+      "updatedAt": "2026-01-01T00:23:00.000Z"
+    },
+    {
+      "id": "6187a800-bbfe-47a7-a361-a37f024fe2fc",
+      "firstName": "Giovanny",
+      "lastName": "Hansen",
+      "email": "Gwen.Paucek@gmail.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:24:00.000Z",
+      "updatedAt": "2026-01-01T00:25:00.000Z"
+    },
+    {
+      "id": "ff903ce7-5411-4fc2-83ac-c2f399fa98c1",
+      "firstName": "Evan",
+      "lastName": "Homenick",
+      "email": "Ardella_Gleason@yahoo.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:26:00.000Z",
+      "updatedAt": "2026-01-01T00:27:00.000Z"
+    },
+    {
+      "id": "475c7df3-9df4-4b0e-a1bf-8399a2e90a30",
+      "firstName": "Beau",
+      "lastName": "Grimes",
+      "email": "Kerry88@yahoo.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:28:00.000Z",
+      "updatedAt": "2026-01-01T00:29:00.000Z"
+    },
+    {
+      "id": "8c989c8e-fec3-464a-a5c1-c9d698fc82e3",
+      "firstName": "Darryl",
+      "lastName": "Herman",
+      "email": "Robyn33@gmail.com",
+      "region": "PIURA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:30:00.000Z",
+      "updatedAt": "2026-01-01T00:31:00.000Z"
+    },
+    {
+      "id": "2633a751-8564-4680-bde8-4f6bb63f1734",
+      "firstName": "Dana",
+      "lastName": "Gleichner-Padberg",
+      "email": "Thomas.Labadie64@gmail.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:32:00.000Z",
+      "updatedAt": "2026-01-01T00:33:00.000Z"
+    },
+    {
+      "id": "f7c799fa-3037-46cc-b1f8-96adafbd0aa1",
+      "firstName": "Leland",
+      "lastName": "Aufderhar",
+      "email": "Emanuel.Raynor@hotmail.com",
+      "region": "AREQUIPA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:34:00.000Z",
+      "updatedAt": "2026-01-01T00:35:00.000Z"
+    },
+    {
+      "id": "56ba8532-11d6-40e3-b43f-1bead3ab7dbe",
+      "firstName": "Jack",
+      "lastName": "Kassulke",
+      "email": "Angela.Homenick42@gmail.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:36:00.000Z",
+      "updatedAt": "2026-01-01T00:37:00.000Z"
+    },
+    {
+      "id": "d702bbc5-5c6b-4951-91e7-f5355a0c6677",
+      "firstName": "Jana",
+      "lastName": "Flatley",
+      "email": "Johnnie.Shanahan48@hotmail.com",
+      "region": "CUSCO",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:38:00.000Z",
+      "updatedAt": "2026-01-01T00:39:00.000Z"
+    },
+    {
+      "id": "534f1708-2a4b-4504-b174-a705791a52c1",
+      "firstName": "Al",
+      "lastName": "Stokes",
+      "email": "Sheri_Kihn37@hotmail.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:40:00.000Z",
+      "updatedAt": "2026-01-01T00:41:00.000Z"
+    },
+    {
+      "id": "59a0e328-a4a4-4ee1-82b0-d5b031267eab",
+      "firstName": "Kellen",
+      "lastName": "Boehm",
+      "email": "Deondre_Friesen86@gmail.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:42:00.000Z",
+      "updatedAt": "2026-01-01T00:43:00.000Z"
+    },
+    {
+      "id": "1913f794-7280-40a0-8843-94722118ccf2",
+      "firstName": "Oceane",
+      "lastName": "Huel",
+      "email": "Lisa.Cruickshank@yahoo.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:44:00.000Z",
+      "updatedAt": "2026-01-01T00:45:00.000Z"
+    },
+    {
+      "id": "8b96e9fd-aef3-4be0-9c1e-920d2f1d6dcd",
+      "firstName": "Andrew",
+      "lastName": "Hettinger",
+      "email": "Melanie_Kunze97@hotmail.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:46:00.000Z",
+      "updatedAt": "2026-01-01T00:47:00.000Z"
+    },
+    {
+      "id": "3104205d-4bb0-4f2b-b6df-3d8fa93b4df0",
+      "firstName": "Tasha",
+      "lastName": "Boyer",
+      "email": "Gerardo71@yahoo.com",
+      "region": "PIURA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:48:00.000Z",
+      "updatedAt": "2026-01-01T00:49:00.000Z"
+    },
+    {
+      "id": "c5bfef09-33dc-4583-b0eb-8066222913f3",
+      "firstName": "Leland",
+      "lastName": "Witting",
+      "email": "Leonor97@hotmail.com",
+      "region": "PIURA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:50:00.000Z",
+      "updatedAt": "2026-01-01T00:51:00.000Z"
+    },
+    {
+      "id": "f478274d-510d-4de1-a66d-44b2ab23bcf4",
+      "firstName": "Elisa",
+      "lastName": "Schmitt",
+      "email": "Tiffany_Auer68@yahoo.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:52:00.000Z",
+      "updatedAt": "2026-01-01T00:53:00.000Z"
+    },
+    {
+      "id": "f30cd8e2-409e-491b-8a2d-e649fbccfd43",
+      "firstName": "Thelma",
+      "lastName": "Bergnaum",
+      "email": "Jake_Connelly-Schoen71@yahoo.com",
+      "region": "AREQUIPA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:54:00.000Z",
+      "updatedAt": "2026-01-01T00:55:00.000Z"
+    },
+    {
+      "id": "daf2781a-956c-45fe-91da-0fddee3e0e7d",
+      "firstName": "Armando",
+      "lastName": "Mertz",
+      "email": "Cathy82@yahoo.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T00:56:00.000Z",
+      "updatedAt": "2026-01-01T00:57:00.000Z"
+    },
+    {
+      "id": "d861d055-e7e1-4d98-b474-7caae03b6aeb",
+      "firstName": "Maynard",
+      "lastName": "Bartoletti",
+      "email": "Abel_Frami@hotmail.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T00:58:00.000Z",
+      "updatedAt": "2026-01-01T00:59:00.000Z"
+    },
+    {
+      "id": "5f97849b-143b-4e6a-8026-aa32f571ea86",
+      "firstName": "Lily",
+      "lastName": "Heller",
+      "email": "Seth26@hotmail.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:00:00.000Z",
+      "updatedAt": "2026-01-01T01:01:00.000Z"
+    },
+    {
+      "id": "d4fe34e1-3929-4994-adf4-d45c20621924",
+      "firstName": "Eloy",
+      "lastName": "Ferry",
+      "email": "Naomi_Kreiger@hotmail.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:02:00.000Z",
+      "updatedAt": "2026-01-01T01:03:00.000Z"
+    },
+    {
+      "id": "458dab35-2bfb-41b6-b1fb-9d5a718a721a",
+      "firstName": "Tony",
+      "lastName": "Jaskolski",
+      "email": "Dorothy_Crona@hotmail.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:04:00.000Z",
+      "updatedAt": "2026-01-01T01:05:00.000Z"
+    },
+    {
+      "id": "e5cb00ad-e294-43b6-97d3-8d29dce0b38c",
+      "firstName": "Tyrique",
+      "lastName": "Hudson",
+      "email": "Anastasia56@yahoo.com",
+      "region": "PIURA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:06:00.000Z",
+      "updatedAt": "2026-01-01T01:07:00.000Z"
+    },
+    {
+      "id": "aa276100-b774-4822-9d0e-5e159f1c9af5",
+      "firstName": "Elvie",
+      "lastName": "Dietrich",
+      "email": "Odell.Osinski40@gmail.com",
+      "region": "AREQUIPA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:08:00.000Z",
+      "updatedAt": "2026-01-01T01:09:00.000Z"
+    },
+    {
+      "id": "38a049d3-ed6d-4d41-b1e7-a6cdeaed494a",
+      "firstName": "Agustina",
+      "lastName": "Haley",
+      "email": "Hector.Jakubowski26@yahoo.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:10:00.000Z",
+      "updatedAt": "2026-01-01T01:11:00.000Z"
+    },
+    {
+      "id": "53e528ec-243e-4427-8920-1a24adf63bbf",
+      "firstName": "Percy",
+      "lastName": "Roberts",
+      "email": "Ansley.Borer78@yahoo.com",
+      "region": "AREQUIPA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:12:00.000Z",
+      "updatedAt": "2026-01-01T01:13:00.000Z"
+    },
+    {
+      "id": "9931ba7e-fbf2-42f6-b8f9-dbd7f2c39cb7",
+      "firstName": "Dennis",
+      "lastName": "Beahan",
+      "email": "Roderick57@yahoo.com",
+      "region": "CUSCO",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:14:00.000Z",
+      "updatedAt": "2026-01-01T01:15:00.000Z"
+    },
+    {
+      "id": "3be6a80e-c615-483d-8432-b8b46e5ef079",
+      "firstName": "Lynette",
+      "lastName": "Sanford",
+      "email": "Werner.McGlynn-Terry4@hotmail.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:16:00.000Z",
+      "updatedAt": "2026-01-01T01:17:00.000Z"
+    },
+    {
+      "id": "7bab9f3e-f06a-49fa-a9ee-d6bf37c9c427",
+      "firstName": "August",
+      "lastName": "Rath",
+      "email": "Elmore_Gulgowski22@hotmail.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:18:00.000Z",
+      "updatedAt": "2026-01-01T01:19:00.000Z"
+    },
+    {
+      "id": "6dd1593e-b311-436c-920e-55864bcdcb3b",
+      "firstName": "Homer",
+      "lastName": "Torp",
+      "email": "Evelyn.Crooks@yahoo.com",
+      "region": "PIURA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:20:00.000Z",
+      "updatedAt": "2026-01-01T01:21:00.000Z"
+    },
+    {
+      "id": "a0ede228-db47-4399-81a1-0d37fa5d3799",
+      "firstName": "Johanna",
+      "lastName": "Waters",
+      "email": "Marilyn.Paucek74@gmail.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:22:00.000Z",
+      "updatedAt": "2026-01-01T01:23:00.000Z"
+    },
+    {
+      "id": "e9a35c5d-3b1d-4af0-a200-daa6062ee400",
+      "firstName": "Mark",
+      "lastName": "Abshire",
+      "email": "Harley.Fay@hotmail.com",
+      "region": "PIURA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:24:00.000Z",
+      "updatedAt": "2026-01-01T01:25:00.000Z"
+    },
+    {
+      "id": "5db1bf77-b355-4f22-a74d-6ad4b64e972e",
+      "firstName": "Bryan",
+      "lastName": "Konopelski",
+      "email": "Monica.Sawayn30@gmail.com",
+      "region": "PIURA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:26:00.000Z",
+      "updatedAt": "2026-01-01T01:27:00.000Z"
+    },
+    {
+      "id": "c165204c-4d9c-4fa5-a4fb-837cfa07d85d",
+      "firstName": "Merle",
+      "lastName": "Green",
+      "email": "Calvin_Grant@gmail.com",
+      "region": "LIMA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:28:00.000Z",
+      "updatedAt": "2026-01-01T01:29:00.000Z"
+    },
+    {
+      "id": "ede714e6-5487-4564-9330-ff116cd0482f",
+      "firstName": "Floyd",
+      "lastName": "Wiegand",
+      "email": "Tara_Russel21@hotmail.com",
+      "region": "CUSCO",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:30:00.000Z",
+      "updatedAt": "2026-01-01T01:31:00.000Z"
+    },
+    {
+      "id": "49c1f70f-4475-4228-91b5-f1045ddbdbd7",
+      "firstName": "Arturo",
+      "lastName": "Kunze",
+      "email": "Rachael_Sawayn@hotmail.com",
+      "region": "AREQUIPA",
+      "status": "ACTIVE",
+      "createdAt": "2026-01-01T01:32:00.000Z",
+      "updatedAt": "2026-01-01T01:33:00.000Z"
+    },
+    {
+      "id": "1df36bac-e482-4fc2-8bc2-7d505c14d268",
+      "firstName": "Lorenzo",
+      "lastName": "Abernathy",
+      "email": "Rafael72@gmail.com",
+      "region": "CUSCO",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:34:00.000Z",
+      "updatedAt": "2026-01-01T01:35:00.000Z"
+    },
+    {
+      "id": "1413e078-4c93-4700-9b2f-5b76aae189aa",
+      "firstName": "Althea",
+      "lastName": "Goodwin",
+      "email": "Marsha3@gmail.com",
+      "region": "LIMA",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:36:00.000Z",
+      "updatedAt": "2026-01-01T01:37:00.000Z"
+    },
+    {
+      "id": "0d30b040-12bf-4365-94b4-82da893d1e9f",
+      "firstName": "Adeline",
+      "lastName": "Botsford",
+      "email": "Lynn.Quigley@yahoo.com",
+      "region": "CUSCO",
+      "status": "INACTIVE",
+      "createdAt": "2026-01-01T01:38:00.000Z",
+      "updatedAt": "2026-01-01T01:39:00.000Z"
+    }
+  ],
+  "permits": [
+    {
+      "id": "7a91a081-9bc9-4f50-ad78-d451a3d9e0f6",
+      "citizenId": "c165204c-4d9c-4fa5-a4fb-837cfa07d85d",
+      "type": "BUSINESS",
+      "status": "APPROVED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T01:40:00.000Z",
+      "updatedAt": "2026-01-01T01:41:00.000Z"
+    },
+    {
+      "id": "62fc90e1-c0cd-478d-9f02-da4710bbbe46",
+      "citizenId": "f478274d-510d-4de1-a66d-44b2ab23bcf4",
+      "type": "BUSINESS",
+      "status": "APPROVED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T01:42:00.000Z",
+      "updatedAt": "2026-01-01T01:43:00.000Z"
+    },
+    {
+      "id": "e7ebfc3b-3437-46e9-8595-d131d4f25ea7",
+      "citizenId": "534f1708-2a4b-4504-b174-a705791a52c1",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T01:44:00.000Z",
+      "updatedAt": "2026-01-01T01:45:00.000Z"
+    },
+    {
+      "id": "99519b99-b039-4240-830d-980d0c3d2808",
+      "citizenId": "9931ba7e-fbf2-42f6-b8f9-dbd7f2c39cb7",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T01:46:00.000Z",
+      "updatedAt": "2026-01-01T01:47:00.000Z"
+    },
+    {
+      "id": "09ae0628-365b-4b63-acd8-3c5e4f6c3996",
+      "citizenId": "5cc37b63-fad0-4481-9f35-3134a4505829",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T01:48:00.000Z",
+      "updatedAt": "2026-01-01T01:49:00.000Z"
+    },
+    {
+      "id": "b2c31e92-a52c-41fc-bb3c-084dc7713b1c",
+      "citizenId": "6dd1593e-b311-436c-920e-55864bcdcb3b",
+      "type": "TRANSPORT",
+      "status": "APPROVED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T01:50:00.000Z",
+      "updatedAt": "2026-01-01T01:51:00.000Z"
+    },
+    {
+      "id": "d25d82de-bfe1-469b-b8a1-60a267acb98d",
+      "citizenId": "daf2781a-956c-45fe-91da-0fddee3e0e7d",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T01:52:00.000Z",
+      "updatedAt": "2026-01-01T01:53:00.000Z"
+    },
+    {
+      "id": "9211c332-984a-4cf7-864c-f9ab6349a70e",
+      "citizenId": "49c1f70f-4475-4228-91b5-f1045ddbdbd7",
+      "type": "BUSINESS",
+      "status": "REJECTED",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T01:54:00.000Z",
+      "updatedAt": "2026-01-01T01:55:00.000Z"
+    },
+    {
+      "id": "7004ae60-4f1c-4b9e-9afd-cf951b86fe6f",
+      "citizenId": "ed4811d6-af30-40be-8768-da3c2293b54f",
+      "type": "TRANSPORT",
+      "status": "APPROVED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T01:56:00.000Z",
+      "updatedAt": "2026-01-01T01:57:00.000Z"
+    },
+    {
+      "id": "2dd3bff7-d893-463b-9ac9-4fa7c4c51c3a",
+      "citizenId": "7181afc9-1ba0-4c86-9c67-25d26f3ee178",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T01:58:00.000Z",
+      "updatedAt": "2026-01-01T01:59:00.000Z"
+    },
+    {
+      "id": "38d7c2a2-cb67-42ae-8856-377f6d28998c",
+      "citizenId": "d4fe34e1-3929-4994-adf4-d45c20621924",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:00:00.000Z",
+      "updatedAt": "2026-01-01T02:01:00.000Z"
+    },
+    {
+      "id": "3b1efce6-238a-491b-8c07-712d937d1f24",
+      "citizenId": "daf2781a-956c-45fe-91da-0fddee3e0e7d",
+      "type": "BUSINESS",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:02:00.000Z",
+      "updatedAt": "2026-01-01T02:03:00.000Z"
+    },
+    {
+      "id": "0595761a-d827-40e3-ae9f-d00b8c93c0ca",
+      "citizenId": "0d30b040-12bf-4365-94b4-82da893d1e9f",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T02:04:00.000Z",
+      "updatedAt": "2026-01-01T02:05:00.000Z"
+    },
+    {
+      "id": "705f4aa9-49b6-444e-aac9-a4e8c81176e2",
+      "citizenId": "3104205d-4bb0-4f2b-b6df-3d8fa93b4df0",
+      "type": "CONSTRUCTION",
+      "status": "APPROVED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T02:06:00.000Z",
+      "updatedAt": "2026-01-01T02:07:00.000Z"
+    },
+    {
+      "id": "2138acc1-d1ef-49b5-b8d2-86d2e496e383",
+      "citizenId": "c165204c-4d9c-4fa5-a4fb-837cfa07d85d",
+      "type": "TRANSPORT",
+      "status": "REJECTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:08:00.000Z",
+      "updatedAt": "2026-01-01T02:09:00.000Z"
+    },
+    {
+      "id": "70fa7912-a0be-4b8c-9b93-073386849939",
+      "citizenId": "49c1f70f-4475-4228-91b5-f1045ddbdbd7",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T02:10:00.000Z",
+      "updatedAt": "2026-01-01T02:11:00.000Z"
+    },
+    {
+      "id": "e7dd03ec-2394-43f7-b8a1-6ef7e7fcd208",
+      "citizenId": "ed4811d6-af30-40be-8768-da3c2293b54f",
+      "type": "CONSTRUCTION",
+      "status": "APPROVED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T02:12:00.000Z",
+      "updatedAt": "2026-01-01T02:13:00.000Z"
+    },
+    {
+      "id": "0745d117-6186-4f11-b25a-fe71a60d87bd",
+      "citizenId": "ed4811d6-af30-40be-8768-da3c2293b54f",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T02:14:00.000Z",
+      "updatedAt": "2026-01-01T02:15:00.000Z"
+    },
+    {
+      "id": "f1f90da2-5db5-4c48-8e68-c37eabf9dfaa",
+      "citizenId": "2633a751-8564-4680-bde8-4f6bb63f1734",
+      "type": "BUSINESS",
+      "status": "REJECTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:16:00.000Z",
+      "updatedAt": "2026-01-01T02:17:00.000Z"
+    },
+    {
+      "id": "10a07edb-db07-4083-873d-250407069e88",
+      "citizenId": "f7c799fa-3037-46cc-b1f8-96adafbd0aa1",
+      "type": "BUSINESS",
+      "status": "APPROVED",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T02:18:00.000Z",
+      "updatedAt": "2026-01-01T02:19:00.000Z"
+    },
+    {
+      "id": "e63cd5db-15d5-4d79-9698-df425b35ecf1",
+      "citizenId": "2633a751-8564-4680-bde8-4f6bb63f1734",
+      "type": "CONSTRUCTION",
+      "status": "APPROVED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:20:00.000Z",
+      "updatedAt": "2026-01-01T02:21:00.000Z"
+    },
+    {
+      "id": "2365ad5c-4602-419a-a08c-87a69edbd4c4",
+      "citizenId": "aa276100-b774-4822-9d0e-5e159f1c9af5",
+      "type": "BUSINESS",
+      "status": "PENDING",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T02:22:00.000Z",
+      "updatedAt": "2026-01-01T02:23:00.000Z"
+    },
+    {
+      "id": "88056bb6-6b69-440b-ba10-023d6af7c6b4",
+      "citizenId": "daf2781a-956c-45fe-91da-0fddee3e0e7d",
+      "type": "TRANSPORT",
+      "status": "APPROVED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:24:00.000Z",
+      "updatedAt": "2026-01-01T02:25:00.000Z"
+    },
+    {
+      "id": "2152a98f-577b-43c2-8ff6-e68bce7998b4",
+      "citizenId": "0d30b040-12bf-4365-94b4-82da893d1e9f",
+      "type": "BUSINESS",
+      "status": "APPROVED",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T02:26:00.000Z",
+      "updatedAt": "2026-01-01T02:27:00.000Z"
+    },
+    {
+      "id": "954a6dce-129b-430d-9ce4-8ba08f37c46b",
+      "citizenId": "f478274d-510d-4de1-a66d-44b2ab23bcf4",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:28:00.000Z",
+      "updatedAt": "2026-01-01T02:29:00.000Z"
+    },
+    {
+      "id": "08de1e7f-c28e-4dfd-af89-165e5e39815f",
+      "citizenId": "475c7df3-9df4-4b0e-a1bf-8399a2e90a30",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:30:00.000Z",
+      "updatedAt": "2026-01-01T02:31:00.000Z"
+    },
+    {
+      "id": "531d8b1d-9179-45b9-add0-ab2ed2eacc21",
+      "citizenId": "ede714e6-5487-4564-9330-ff116cd0482f",
+      "type": "BUSINESS",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T02:32:00.000Z",
+      "updatedAt": "2026-01-01T02:33:00.000Z"
+    },
+    {
+      "id": "d9d803d3-e56a-4ccd-8853-f9f769fd606c",
+      "citizenId": "d190b013-e589-439a-b467-e9f8807e3065",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T02:34:00.000Z",
+      "updatedAt": "2026-01-01T02:35:00.000Z"
+    },
+    {
+      "id": "e5775167-3d73-4197-abf3-b6645179477a",
+      "citizenId": "56ba8532-11d6-40e3-b43f-1bead3ab7dbe",
+      "type": "CONSTRUCTION",
+      "status": "APPROVED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:36:00.000Z",
+      "updatedAt": "2026-01-01T02:37:00.000Z"
+    },
+    {
+      "id": "85203805-0a8e-4abe-ae59-69ff71f10bd9",
+      "citizenId": "5f97849b-143b-4e6a-8026-aa32f571ea86",
+      "type": "TRANSPORT",
+      "status": "APPROVED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:38:00.000Z",
+      "updatedAt": "2026-01-01T02:39:00.000Z"
+    },
+    {
+      "id": "57aca286-aa12-4118-90c9-b7ed732da4b4",
+      "citizenId": "a0ede228-db47-4399-81a1-0d37fa5d3799",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:40:00.000Z",
+      "updatedAt": "2026-01-01T02:41:00.000Z"
+    },
+    {
+      "id": "d8494c15-072f-45cd-a1a5-4c44c56b2b5d",
+      "citizenId": "a0ede228-db47-4399-81a1-0d37fa5d3799",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:42:00.000Z",
+      "updatedAt": "2026-01-01T02:43:00.000Z"
+    },
+    {
+      "id": "30ba3aaf-124c-4756-a85a-0957c0389239",
+      "citizenId": "9931ba7e-fbf2-42f6-b8f9-dbd7f2c39cb7",
+      "type": "BUSINESS",
+      "status": "APPROVED",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T02:44:00.000Z",
+      "updatedAt": "2026-01-01T02:45:00.000Z"
+    },
+    {
+      "id": "4fa54458-9a09-49e3-b0f9-156c4f9189fe",
+      "citizenId": "534f1708-2a4b-4504-b174-a705791a52c1",
+      "type": "BUSINESS",
+      "status": "APPROVED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:46:00.000Z",
+      "updatedAt": "2026-01-01T02:47:00.000Z"
+    },
+    {
+      "id": "044c2b64-e4cc-4650-8720-924bbfe8f588",
+      "citizenId": "aa276100-b774-4822-9d0e-5e159f1c9af5",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T02:48:00.000Z",
+      "updatedAt": "2026-01-01T02:49:00.000Z"
+    },
+    {
+      "id": "ea1f189b-e558-4385-9e4a-6fe50475a55e",
+      "citizenId": "49c1f70f-4475-4228-91b5-f1045ddbdbd7",
+      "type": "BUSINESS",
+      "status": "APPROVED",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T02:50:00.000Z",
+      "updatedAt": "2026-01-01T02:51:00.000Z"
+    },
+    {
+      "id": "2555d8f4-30d7-4409-84a1-82abccedc3e7",
+      "citizenId": "6187a800-bbfe-47a7-a361-a37f024fe2fc",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:52:00.000Z",
+      "updatedAt": "2026-01-01T02:53:00.000Z"
+    },
+    {
+      "id": "b1163dd2-4711-4792-92be-0c0f5c856aec",
+      "citizenId": "59a0e328-a4a4-4ee1-82b0-d5b031267eab",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T02:54:00.000Z",
+      "updatedAt": "2026-01-01T02:55:00.000Z"
+    },
+    {
+      "id": "b16d600e-da0c-461c-bb35-f1da3990b080",
+      "citizenId": "b438b6fa-765b-4706-8b22-88adb9b5534a",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T02:56:00.000Z",
+      "updatedAt": "2026-01-01T02:57:00.000Z"
+    },
+    {
+      "id": "c62bba47-0574-494a-99d3-cd0650cecb53",
+      "citizenId": "5db1bf77-b355-4f22-a74d-6ad4b64e972e",
+      "type": "TRANSPORT",
+      "status": "APPROVED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T02:58:00.000Z",
+      "updatedAt": "2026-01-01T02:59:00.000Z"
+    },
+    {
+      "id": "eef1b5b8-f71a-4759-9d3a-bf38b0d5a6ec",
+      "citizenId": "5f97849b-143b-4e6a-8026-aa32f571ea86",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:00:00.000Z",
+      "updatedAt": "2026-01-01T03:01:00.000Z"
+    },
+    {
+      "id": "e881e67f-d1c3-42d8-8711-6f3b88fdd0ff",
+      "citizenId": "59a0e328-a4a4-4ee1-82b0-d5b031267eab",
+      "type": "BUSINESS",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:02:00.000Z",
+      "updatedAt": "2026-01-01T03:03:00.000Z"
+    },
+    {
+      "id": "d0474e5b-c063-4460-a931-75fc4982cb2b",
+      "citizenId": "5cc37b63-fad0-4481-9f35-3134a4505829",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T03:04:00.000Z",
+      "updatedAt": "2026-01-01T03:05:00.000Z"
+    },
+    {
+      "id": "192a5b3a-f745-4398-a8a0-2302da203b78",
+      "citizenId": "f30cd8e2-409e-491b-8a2d-e649fbccfd43",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T03:06:00.000Z",
+      "updatedAt": "2026-01-01T03:07:00.000Z"
+    },
+    {
+      "id": "ffba31e4-3e24-4202-a782-b8953c58be7f",
+      "citizenId": "55edbf63-1421-4959-b3a3-4b858be93bc3",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T03:08:00.000Z",
+      "updatedAt": "2026-01-01T03:09:00.000Z"
+    },
+    {
+      "id": "96c99288-bb92-4f92-8c24-921a053e9165",
+      "citizenId": "7181afc9-1ba0-4c86-9c67-25d26f3ee178",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T03:10:00.000Z",
+      "updatedAt": "2026-01-01T03:11:00.000Z"
+    },
+    {
+      "id": "f1aa8aec-a633-43d1-a10b-0ef30f38a9d7",
+      "citizenId": "e9a35c5d-3b1d-4af0-a200-daa6062ee400",
+      "type": "CONSTRUCTION",
+      "status": "APPROVED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T03:12:00.000Z",
+      "updatedAt": "2026-01-01T03:13:00.000Z"
+    },
+    {
+      "id": "2d5fcf80-d9d4-4d34-9221-8a3e11eb2f01",
+      "citizenId": "ed4811d6-af30-40be-8768-da3c2293b54f",
+      "type": "CONSTRUCTION",
+      "status": "REJECTED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T03:14:00.000Z",
+      "updatedAt": "2026-01-01T03:15:00.000Z"
+    },
+    {
+      "id": "895611b0-7a71-4c74-a29e-4da0d6d3837e",
+      "citizenId": "7bab9f3e-f06a-49fa-a9ee-d6bf37c9c427",
+      "type": "CONSTRUCTION",
+      "status": "PENDING",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T03:16:00.000Z",
+      "updatedAt": "2026-01-01T03:17:00.000Z"
+    },
+    {
+      "id": "fcbb5429-ecff-468d-9cc8-9dfcc2df4320",
+      "citizenId": "5f97849b-143b-4e6a-8026-aa32f571ea86",
+      "type": "TRANSPORT",
+      "status": "PENDING",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:18:00.000Z",
+      "updatedAt": "2026-01-01T03:19:00.000Z"
+    }
+  ],
+  "applications": [
+    {
+      "id": "a80ffecc-91da-4192-983a-c01fa436fbf8",
+      "citizenId": "53e528ec-243e-4427-8920-1a24adf63bbf",
+      "permitId": "ea1f189b-e558-4385-9e4a-6fe50475a55e",
+      "status": "DRAFT",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T03:20:00.000Z",
+      "updatedAt": "2026-01-01T03:21:00.000Z"
+    },
+    {
+      "id": "22c312e9-c3a3-4818-a337-9b4415576b7d",
+      "citizenId": "f478274d-510d-4de1-a66d-44b2ab23bcf4",
+      "permitId": "08de1e7f-c28e-4dfd-af89-165e5e39815f",
+      "status": "UNDER_REVIEW",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:22:00.000Z",
+      "updatedAt": "2026-01-01T03:23:00.000Z"
+    },
+    {
+      "id": "bf5f9428-fdb0-4cbd-a165-cc85120ce0c4",
+      "citizenId": "aa276100-b774-4822-9d0e-5e159f1c9af5",
+      "permitId": "f1aa8aec-a633-43d1-a10b-0ef30f38a9d7",
+      "status": "UNDER_REVIEW",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T03:24:00.000Z",
+      "updatedAt": "2026-01-01T03:25:00.000Z"
+    },
+    {
+      "id": "af10db48-6798-4958-9d54-75e9b01661c9",
+      "citizenId": "2633a751-8564-4680-bde8-4f6bb63f1734",
+      "permitId": "fcbb5429-ecff-468d-9cc8-9dfcc2df4320",
+      "status": "UNDER_REVIEW",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:26:00.000Z",
+      "updatedAt": "2026-01-01T03:27:00.000Z"
+    },
+    {
+      "id": "79026008-93ec-4d7d-8a10-f8b2bae459e4",
+      "citizenId": "aa276100-b774-4822-9d0e-5e159f1c9af5",
+      "status": "SUBMITTED",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T03:28:00.000Z",
+      "updatedAt": "2026-01-01T03:29:00.000Z"
+    },
+    {
+      "id": "c38b1c15-0d92-4170-8cf0-990c4a314ec7",
+      "citizenId": "d4fe34e1-3929-4994-adf4-d45c20621924",
+      "permitId": "7004ae60-4f1c-4b9e-9afd-cf951b86fe6f",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:30:00.000Z",
+      "updatedAt": "2026-01-01T03:31:00.000Z"
+    },
+    {
+      "id": "4854a271-45a7-44a7-bb6b-93820b297658",
+      "citizenId": "1413e078-4c93-4700-9b2f-5b76aae189aa",
+      "status": "COMPLETED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:32:00.000Z",
+      "updatedAt": "2026-01-01T03:33:00.000Z"
+    },
+    {
+      "id": "ff02d538-a5d8-43a7-a219-1f3f5ea14669",
+      "citizenId": "534f1708-2a4b-4504-b174-a705791a52c1",
+      "permitId": "531d8b1d-9179-45b9-add0-ab2ed2eacc21",
+      "status": "SUBMITTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:34:00.000Z",
+      "updatedAt": "2026-01-01T03:35:00.000Z"
+    },
+    {
+      "id": "a90cc6c0-6633-40af-9e38-c520b43edc0e",
+      "citizenId": "7181afc9-1ba0-4c86-9c67-25d26f3ee178",
+      "permitId": "2152a98f-577b-43c2-8ff6-e68bce7998b4",
+      "status": "SUBMITTED",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T03:36:00.000Z",
+      "updatedAt": "2026-01-01T03:37:00.000Z"
+    },
+    {
+      "id": "26f00144-2bb6-489d-b6ed-84bb2e310c03",
+      "citizenId": "53e528ec-243e-4427-8920-1a24adf63bbf",
+      "status": "DRAFT",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T03:38:00.000Z",
+      "updatedAt": "2026-01-01T03:39:00.000Z"
+    },
+    {
+      "id": "798a2b04-e226-4643-b3a1-12edff0d5cfb",
+      "citizenId": "d861d055-e7e1-4d98-b474-7caae03b6aeb",
+      "status": "UNDER_REVIEW",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T03:40:00.000Z",
+      "updatedAt": "2026-01-01T03:41:00.000Z"
+    },
+    {
+      "id": "13a6c82a-f8ef-4480-a836-1c9a61598c5f",
+      "citizenId": "f478274d-510d-4de1-a66d-44b2ab23bcf4",
+      "permitId": "2365ad5c-4602-419a-a08c-87a69edbd4c4",
+      "status": "UNDER_REVIEW",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:42:00.000Z",
+      "updatedAt": "2026-01-01T03:43:00.000Z"
+    },
+    {
+      "id": "5ddc6196-52a7-45f6-820f-6d1764ba144e",
+      "citizenId": "d2c44a1a-eb77-4c91-99d5-ec9c1dde2126",
+      "permitId": "eef1b5b8-f71a-4759-9d3a-bf38b0d5a6ec",
+      "status": "UNDER_REVIEW",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:44:00.000Z",
+      "updatedAt": "2026-01-01T03:45:00.000Z"
+    },
+    {
+      "id": "573f521d-454b-4e42-8b71-61fefd02a273",
+      "citizenId": "1413e078-4c93-4700-9b2f-5b76aae189aa",
+      "permitId": "08de1e7f-c28e-4dfd-af89-165e5e39815f",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:46:00.000Z",
+      "updatedAt": "2026-01-01T03:47:00.000Z"
+    },
+    {
+      "id": "93e9a7aa-f92b-4437-9809-ae819dad288d",
+      "citizenId": "a0ede228-db47-4399-81a1-0d37fa5d3799",
+      "permitId": "954a6dce-129b-430d-9ce4-8ba08f37c46b",
+      "status": "UNDER_REVIEW",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:48:00.000Z",
+      "updatedAt": "2026-01-01T03:49:00.000Z"
+    },
+    {
+      "id": "9d7036ae-531b-4bac-b715-2feaffe408a7",
+      "citizenId": "d861d055-e7e1-4d98-b474-7caae03b6aeb",
+      "status": "UNDER_REVIEW",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T03:50:00.000Z",
+      "updatedAt": "2026-01-01T03:51:00.000Z"
+    },
+    {
+      "id": "d71377e6-17b3-4d0b-a3b9-e179d0c7e137",
+      "citizenId": "d861d055-e7e1-4d98-b474-7caae03b6aeb",
+      "permitId": "531d8b1d-9179-45b9-add0-ab2ed2eacc21",
+      "status": "DRAFT",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T03:52:00.000Z",
+      "updatedAt": "2026-01-01T03:53:00.000Z"
+    },
+    {
+      "id": "5b91606e-ab4a-4fbd-a273-9a0fca55115c",
+      "citizenId": "5f97849b-143b-4e6a-8026-aa32f571ea86",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:54:00.000Z",
+      "updatedAt": "2026-01-01T03:55:00.000Z"
+    },
+    {
+      "id": "be643caf-f122-486c-a31a-2c465f466ddd",
+      "citizenId": "475c7df3-9df4-4b0e-a1bf-8399a2e90a30",
+      "status": "SUBMITTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T03:56:00.000Z",
+      "updatedAt": "2026-01-01T03:57:00.000Z"
+    },
+    {
+      "id": "960b707f-2a65-4260-8595-265f97fc5783",
+      "citizenId": "ed4811d6-af30-40be-8768-da3c2293b54f",
+      "status": "DRAFT",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T03:58:00.000Z",
+      "updatedAt": "2026-01-01T03:59:00.000Z"
+    },
+    {
+      "id": "31067b9d-ad98-4f68-ab76-a0df9779b452",
+      "citizenId": "56ba8532-11d6-40e3-b43f-1bead3ab7dbe",
+      "status": "SUBMITTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:00:00.000Z",
+      "updatedAt": "2026-01-01T04:01:00.000Z"
+    },
+    {
+      "id": "1fd410c1-41f5-43ba-958a-6cbd19b095ed",
+      "citizenId": "a0ede228-db47-4399-81a1-0d37fa5d3799",
+      "status": "COMPLETED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:02:00.000Z",
+      "updatedAt": "2026-01-01T04:03:00.000Z"
+    },
+    {
+      "id": "d8cb088e-8e36-4855-a22d-b7c2391a5ea7",
+      "citizenId": "d190b013-e589-439a-b467-e9f8807e3065",
+      "permitId": "044c2b64-e4cc-4650-8720-924bbfe8f588",
+      "status": "DRAFT",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:04:00.000Z",
+      "updatedAt": "2026-01-01T04:05:00.000Z"
+    },
+    {
+      "id": "6dbafe6b-8b79-42b0-b08a-4e82e9b5d995",
+      "citizenId": "91d98546-ae8a-499a-ad1c-3391eab09822",
+      "status": "COMPLETED",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:06:00.000Z",
+      "updatedAt": "2026-01-01T04:07:00.000Z"
+    },
+    {
+      "id": "c7f41d85-6f08-43d9-8795-c9d92cdc7ac4",
+      "citizenId": "e5cb00ad-e294-43b6-97d3-8d29dce0b38c",
+      "status": "COMPLETED",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T04:08:00.000Z",
+      "updatedAt": "2026-01-01T04:09:00.000Z"
+    },
+    {
+      "id": "fc6dd855-8d61-450e-a3f6-8c0660bc9633",
+      "citizenId": "49c1f70f-4475-4228-91b5-f1045ddbdbd7",
+      "permitId": "85203805-0a8e-4abe-ae59-69ff71f10bd9",
+      "status": "SUBMITTED",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T04:10:00.000Z",
+      "updatedAt": "2026-01-01T04:11:00.000Z"
+    },
+    {
+      "id": "1a0f4893-2cb9-42ca-8972-3d3e2a690531",
+      "citizenId": "458dab35-2bfb-41b6-b1fb-9d5a718a721a",
+      "permitId": "d8494c15-072f-45cd-a1a5-4c44c56b2b5d",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:12:00.000Z",
+      "updatedAt": "2026-01-01T04:13:00.000Z"
+    },
+    {
+      "id": "51247e55-b742-403e-afc7-bd52290f7383",
+      "citizenId": "38a049d3-ed6d-4d41-b1e7-a6cdeaed494a",
+      "status": "COMPLETED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:14:00.000Z",
+      "updatedAt": "2026-01-01T04:15:00.000Z"
+    },
+    {
+      "id": "238d7acc-ac9e-45da-a9b0-c32ae83bebce",
+      "citizenId": "59a0e328-a4a4-4ee1-82b0-d5b031267eab",
+      "permitId": "85203805-0a8e-4abe-ae59-69ff71f10bd9",
+      "status": "COMPLETED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:16:00.000Z",
+      "updatedAt": "2026-01-01T04:17:00.000Z"
+    },
+    {
+      "id": "53ae19bd-8a83-414d-a113-46d9cec487d3",
+      "citizenId": "6dd1593e-b311-436c-920e-55864bcdcb3b",
+      "status": "DRAFT",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T04:18:00.000Z",
+      "updatedAt": "2026-01-01T04:19:00.000Z"
+    },
+    {
+      "id": "3a53d397-73da-4cbc-939c-7947d3ba1a72",
+      "citizenId": "2633a751-8564-4680-bde8-4f6bb63f1734",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:20:00.000Z",
+      "updatedAt": "2026-01-01T04:21:00.000Z"
+    },
+    {
+      "id": "3c556b9f-dfc6-4e61-83f2-6d8ad175a753",
+      "citizenId": "1df36bac-e482-4fc2-8bc2-7d505c14d268",
+      "permitId": "2365ad5c-4602-419a-a08c-87a69edbd4c4",
+      "status": "UNDER_REVIEW",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:22:00.000Z",
+      "updatedAt": "2026-01-01T04:23:00.000Z"
+    },
+    {
+      "id": "a6a1997c-5515-451b-b0e1-32afd118cb80",
+      "citizenId": "a0ede228-db47-4399-81a1-0d37fa5d3799",
+      "permitId": "4fa54458-9a09-49e3-b0f9-156c4f9189fe",
+      "status": "COMPLETED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:24:00.000Z",
+      "updatedAt": "2026-01-01T04:25:00.000Z"
+    },
+    {
+      "id": "b5c17f93-8350-4e2c-9b00-55818ccdb4d9",
+      "citizenId": "5f97849b-143b-4e6a-8026-aa32f571ea86",
+      "permitId": "85203805-0a8e-4abe-ae59-69ff71f10bd9",
+      "status": "SUBMITTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:26:00.000Z",
+      "updatedAt": "2026-01-01T04:27:00.000Z"
+    },
+    {
+      "id": "d65373df-5209-4ce0-bf50-1b59d69dfba5",
+      "citizenId": "c5bfef09-33dc-4583-b0eb-8066222913f3",
+      "status": "UNDER_REVIEW",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T04:28:00.000Z",
+      "updatedAt": "2026-01-01T04:29:00.000Z"
+    },
+    {
+      "id": "0bb54c3a-d505-4a7e-a8fa-da89d9e467ac",
+      "citizenId": "d702bbc5-5c6b-4951-91e7-f5355a0c6677",
+      "status": "COMPLETED",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:30:00.000Z",
+      "updatedAt": "2026-01-01T04:31:00.000Z"
+    },
+    {
+      "id": "041cc18e-2abe-4987-8572-a307c3cba947",
+      "citizenId": "1413e078-4c93-4700-9b2f-5b76aae189aa",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:32:00.000Z",
+      "updatedAt": "2026-01-01T04:33:00.000Z"
+    },
+    {
+      "id": "bb7b5c5a-a6be-4141-a23f-b9915e004ad0",
+      "citizenId": "d861d055-e7e1-4d98-b474-7caae03b6aeb",
+      "permitId": "88056bb6-6b69-440b-ba10-023d6af7c6b4",
+      "status": "UNDER_REVIEW",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:34:00.000Z",
+      "updatedAt": "2026-01-01T04:35:00.000Z"
+    },
+    {
+      "id": "e5792782-c13a-4417-8572-f247e192a9c0",
+      "citizenId": "d2c44a1a-eb77-4c91-99d5-ec9c1dde2126",
+      "status": "UNDER_REVIEW",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:36:00.000Z",
+      "updatedAt": "2026-01-01T04:37:00.000Z"
+    },
+    {
+      "id": "ef454a61-acf6-4127-abac-8d35169752b8",
+      "citizenId": "0fee6b36-d2e7-464e-88cd-e4597e6796f1",
+      "status": "UNDER_REVIEW",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T04:38:00.000Z",
+      "updatedAt": "2026-01-01T04:39:00.000Z"
+    },
+    {
+      "id": "842ffe2b-a63d-4caa-ad6b-4f5cbcd9332b",
+      "citizenId": "d861d055-e7e1-4d98-b474-7caae03b6aeb",
+      "permitId": "e881e67f-d1c3-42d8-8711-6f3b88fdd0ff",
+      "status": "SUBMITTED",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:40:00.000Z",
+      "updatedAt": "2026-01-01T04:41:00.000Z"
+    },
+    {
+      "id": "62058063-7c62-482d-9a08-7ddbd995687a",
+      "citizenId": "c165204c-4d9c-4fa5-a4fb-837cfa07d85d",
+      "status": "UNDER_REVIEW",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:42:00.000Z",
+      "updatedAt": "2026-01-01T04:43:00.000Z"
+    },
+    {
+      "id": "c5b610e1-c633-48f9-b852-28653cf4b2b4",
+      "citizenId": "f7c799fa-3037-46cc-b1f8-96adafbd0aa1",
+      "permitId": "e881e67f-d1c3-42d8-8711-6f3b88fdd0ff",
+      "status": "DRAFT",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T04:44:00.000Z",
+      "updatedAt": "2026-01-01T04:45:00.000Z"
+    },
+    {
+      "id": "beb540bf-d1d9-41a1-a0bd-51698bdf7453",
+      "citizenId": "f478274d-510d-4de1-a66d-44b2ab23bcf4",
+      "permitId": "9211c332-984a-4cf7-864c-f9ab6349a70e",
+      "status": "SUBMITTED",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:46:00.000Z",
+      "updatedAt": "2026-01-01T04:47:00.000Z"
+    },
+    {
+      "id": "aedf724d-6bba-40a9-b406-8bde33741fab",
+      "citizenId": "e5cb00ad-e294-43b6-97d3-8d29dce0b38c",
+      "status": "DRAFT",
+      "region": "PIURA",
+      "createdAt": "2026-01-01T04:48:00.000Z",
+      "updatedAt": "2026-01-01T04:49:00.000Z"
+    },
+    {
+      "id": "75e7e4eb-e35e-4010-acfb-eeb9578f0e2b",
+      "citizenId": "c165204c-4d9c-4fa5-a4fb-837cfa07d85d",
+      "permitId": "38d7c2a2-cb67-42ae-8856-377f6d28998c",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:50:00.000Z",
+      "updatedAt": "2026-01-01T04:51:00.000Z"
+    },
+    {
+      "id": "5060cd82-b1f2-4ab9-a0dc-b2292c52435a",
+      "citizenId": "7181afc9-1ba0-4c86-9c67-25d26f3ee178",
+      "status": "COMPLETED",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:52:00.000Z",
+      "updatedAt": "2026-01-01T04:53:00.000Z"
+    },
+    {
+      "id": "1f44f0e2-8109-4739-aca4-94867847de2a",
+      "citizenId": "d861d055-e7e1-4d98-b474-7caae03b6aeb",
+      "permitId": "2dd3bff7-d893-463b-9ac9-4fa7c4c51c3a",
+      "status": "UNDER_REVIEW",
+      "region": "CUSCO",
+      "createdAt": "2026-01-01T04:54:00.000Z",
+      "updatedAt": "2026-01-01T04:55:00.000Z"
+    },
+    {
+      "id": "bfdcc663-e8f1-4d0b-84e7-89ddcc912a37",
+      "citizenId": "0fee6b36-d2e7-464e-88cd-e4597e6796f1",
+      "permitId": "e881e67f-d1c3-42d8-8711-6f3b88fdd0ff",
+      "status": "DRAFT",
+      "region": "AREQUIPA",
+      "createdAt": "2026-01-01T04:56:00.000Z",
+      "updatedAt": "2026-01-01T04:57:00.000Z"
+    },
+    {
+      "id": "76c793d9-d3f4-4a20-8ad1-8db9abe4db3c",
+      "citizenId": "d2c44a1a-eb77-4c91-99d5-ec9c1dde2126",
+      "status": "DRAFT",
+      "region": "LIMA",
+      "createdAt": "2026-01-01T04:58:00.000Z",
+      "updatedAt": "2026-01-01T04:59:00.000Z"
+    }
+  ]
+}

@@ -1,101 +1,264 @@
-# Govportal
+﻿# GovPortal Frontend
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Monorepo Nx con Angular 21 orientado a una arquitectura de microfrontends con `shell`, `legacy-remote` y `modern-remote`.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is ready ✨.
+## Despliegue en GitHub Pages
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+URL de despliegue (patron de este repo):
 
-## Run tasks
+- `https://<OWNER>.github.io/govportal/`
 
-To run the dev server for your app, use:
+El workflow de deploy (`.github/workflows/deploy.yml`) publica en Pages tras CI exitoso y ajusta:
 
-```sh
-npx nx serve client
+- `base href` para `/govportal/`.
+- `federation.manifest.json` para cargar remotes locales del artifact (`./legacy/remoteEntry.json` y `./modern/remoteEntry.json`).
+- `404.html` para fallback de rutas SPA en refresh/deep-link.
+- `out/api/*` con datos mock estaticos generados desde `tools/mock-api/db.json`.
+## Workspace actual
+
+Proyectos Nx verificados hoy:
+
+- Aplicaciones: `shell`, `legacy-remote`, `modern-remote`
+- E2E: `shell-e2e`, `modern-remote-e2e`
+- Librerias: `domain`, `core`, `http`, `legacy`, `gov`
+
+La entrada principal del sistema es `shell`. El host monta dos remotes:
+
+- `/legacy/*` -> `legacy-remote`
+- `/modern/*` -> `modern-remote`
+
+## Arquitectura
+
+### Flujo de alto nivel
+
+```text
+shell
+  -> legacy-remote
+  -> modern-remote
+
+legacy-remote / modern-remote
+  -> data-access
+  -> /api/*
+  -> json-server mock API
 ```
 
-To create a production bundle:
+### Capas
 
-```sh
-npx nx build client
+- `apps/shell`
+  - Host de microfrontends con Native Federation.
+  - Redirige `/` a `/legacy`.
+- `apps/legacy`
+  - Remote basado en facades y API clients legacy.
+- `apps/modern`
+  - Remote basado en stores con `@ngrx/signals`.
+  - Hoy sigue consumiendo datos a traves de clients legacy y mappers compartidos.
+- `libs/src`
+  - Dominio compartido expuesto como `@gov/domain`.
+- `libs/data-access/legacy`
+  - DTOs, API clients, mappers y facades.
+- `libs/data-access/gov`
+  - Stores para la UI moderna.
+- `libs/core`
+  - Componentes reutilizables como `PageHeaderComponent`.
+- `libs/core/http`
+  - Infraestructura HTTP compartida.
+
+## Rutas activas
+
+Rutas del host:
+
+- `/legacy/citizens`
+- `/legacy/citizens/:id`
+- `/legacy/permits`
+- `/legacy/applications`
+- `/modern/citizens`
+- `/modern/citizens/:id`
+- `/modern/permits`
+- `/modern/applications`
+
+Comportamiento verificado en codigo:
+
+- El `shell` carga remotos con `loadRemoteModule`.
+- La raiz `/` redirige a `/legacy`.
+- `legacy` y `modern` exponen el selector `Source` para cambiar entre arquitecturas.
+- El cambio de `Source` conserva subruta y query params.
+- Ambos remotes tienen lista y detalle de ciudadanos.
+- El detalle moderno agrega enlaces a `permits` y `applications` usando query params.
+
+## Datos y ACL
+
+La UI no consume DTOs legacy directamente.
+
+- `libs/data-access/legacy` encapsula `Legacy*ApiClient`, DTOs y mappers.
+- `legacy-remote` consume facades como `CitizensFacade`.
+- `modern-remote` consume stores como `CitizensStore`.
+- `CitizensStore` todavia usa `LegacyCitizensApiClient` y `mapLegacyCitizen`, asi que la separacion de backend moderno aun esta pendiente.
+
+ADR relacionadas:
+
+- [ADR 0001](docs/adr/0001-data-access-anti-corruption-layer.md)
+- [ADR 0002](docs/adr/0002-project-evolution-and-architectural-decisions.md)
+
+## Como correr el proyecto
+
+### Requisitos
+
+- Node.js 20+
+- npm
+
+### Instalacion
+
+```bash
+npm install
 ```
 
-To see all available targets to run for a project, run:
+### Mock API
 
-```sh
-npx nx show project client
+```bash
+npm run dev:mock
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+O por separado:
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
+```bash
+npm run dev:db
+npm run dev:api
 ```
 
-To generate a new library, use:
+La API mock escucha en `http://localhost:3001` y `proxy.conf.json` reescribe `/api` hacia ese host (solo para desarrollo local con `serve`).
 
-```sh
-npx nx g @nx/angular:lib mylib
+### Microfrontends
+
+```bash
+npm run start:mfes
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+Puertos esperados:
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- `shell`: `http://localhost:4200`
+- `legacy-remote`: `http://localhost:4201`
+- `modern-remote`: `http://localhost:4202`
 
-## Set up CI!
+Flujo recomendado:
 
-### Step 1
+Terminal 1:
 
-To connect to Nx Cloud, run the following command:
-
-```sh
-npx nx connect
+```bash
+npm run dev:mock
 ```
 
-Connecting to Nx Cloud ensures a [fast and scalable CI](https://nx.dev/ci/intro/why-nx-cloud?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) pipeline. It includes features such as:
+Terminal 2:
 
-- [Remote caching](https://nx.dev/ci/features/remote-cache?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task distribution across multiple machines](https://nx.dev/ci/features/distribute-task-execution?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Automated e2e test splitting](https://nx.dev/ci/features/split-e2e-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Task flakiness detection and rerunning](https://nx.dev/ci/features/flaky-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-### Step 2
-
-Use the following command to configure a CI workflow for your workspace:
-
-```sh
-npx nx g ci-workflow
+```bash
+npm run start:mfes
 ```
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Luego abre `http://localhost:4200`.
 
-## Install Nx Console
+## Targets utiles
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+Ejemplos verificados con Nx:
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```bash
+npx nx show projects --json
+npx nx run shell:serve
+npx nx run legacy-remote:serve
+npx nx run modern-remote:serve
+npx nx test legacy
+npx nx e2e shell-e2e
+npx nx e2e modern-remote-e2e
+```
 
-## Useful links
+## Testing
 
-Learn more:
+Cobertura verificada hoy:
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- `legacy` tiene target `test` con Vitest.
+- `shell`, `legacy-remote` y `modern-remote` tienen target `test` con Vitest.
+- `shell-e2e` y `modern-remote-e2e` tienen target `e2e` con Playwright.
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+Limitaciones actuales observables:
+
+- `gov` no expone target `test`.
+- `modern-remote-e2e` solo contiene el spec inicial `src/example.spec.ts`.
+- `shell-e2e` contiene el escenario mas representativo hoy: navegacion entre MFEs y cambio de `Source`.
+
+## Convenciones tecnicas vigentes
+
+- Angular standalone components.
+- `ChangeDetectionStrategy.OnPush` en pantallas principales.
+- Control flow moderno con `@if` y `@for`.
+- Native Federation con `@angular-architects/native-federation`.
+- Estado legacy con `signals` + `effect`.
+- Estado moderno con `@ngrx/signals` + `rxMethod`.
+- `/api/*` como contrato de acceso a datos para desarrollo local.
+
+## Proxy local vs CI/CD (GitHub Pages)
+
+`proxy.conf.json` solo existe en `nx serve`/dev-server. En GitHub Pages (hosting estatico) no hay proxy runtime, por eso no debe dependerse de proxy en runtime.
+
+Implementacion actual:
+
+1. El frontend consume endpoints relativos (`api/citizens`, `api/permits`, `api/applications`) para respetar el `base href`.
+2. En local, con `<base href="/">`, esas URLs resuelven a `/api/*` y funcionan con `proxy.conf.json`.
+3. En Pages, con `<base href="/govportal/">`, esas URLs resuelven a `/govportal/api/*`.
+4. El deploy genera `db.json` de forma determinista y exporta API mock estatica en `out/api/*`.
+5. El deploy copia `out/index.html` como `out/404.html` para evitar errores de URL no encontrada en rutas SPA.
+
+## CI/CD
+
+Puntos relevantes de pipeline:
+
+1. CI (`.github/workflows/ci.yml`) ejecuta `npx tsx tools/mock-api/generate-db.ts` en el job `build`.
+2. E2E en CI vuelve a generar `db.json`, levanta `json-server` y valida navegacion real entre shell/remotes.
+3. Deploy (`.github/workflows/deploy.yml`) genera `db.json`, construye apps y publica Pages con remotos + API mock estatica.
+## Troubleshooting
+
+### 1) `Port 4200`, `4201` o `4202` ocupado
+
+- Cierra procesos previos.
+- O ajusta los puertos en los targets `serve-original`.
+
+### 2) `/api/*` falla o no hay datos
+
+- Verifica `http://localhost:3001`.
+- Regenera la base mock:
+
+```bash
+npm run dev:db
+```
+
+### 3) Error de rutas en el host
+
+Las rutas de negocio viven bajo prefijo:
+
+- `/legacy/...`
+- `/modern/...`
+
+### 4) Cambios en el mock no se reflejan
+
+- Regenera `tools/mock-api/db.json`.
+- Reinicia `json-server`.
+
+## Scripts disponibles
+
+```bash
+npm run dev:db
+npm run dev:api
+npm run dev:mock
+npm run start:mfes
+```
+
+
+
+## Optimizacion de red y Troubleshooting
+
+Se han aplicado medidas para reducir el consumo inesperado de ancho de banda detectado durante el desarrollo:
+
+1. **Telemetria**: Se ha desactivado globalmente la telemetria de Angular (\
+g analytics disable\).
+2. **Native Federation**: Se han fijado los rangos de versiones (\~21.1.0\, \~7.8.0\) en \ederation.config.js\ para evitar consultas automáticas al registro de npm durante el build.
+3. **Nx Console**: Si se percibe lentitud o descarga de binarios, se recomienda desactivar las actualizaciones automáticas de la extensión de Nx en el IDE.
+4. **GitHub CLI**: Se recomienda instalar el binario \gh\ o deshabilitar extensiones que lo invoquen para evitar errores recurrentes en logs.
+
+Para mas detalles, ver [ADR 0003: Optimizacion del consumo de red y estabilidad del build](docs/adr/0003-optimization-of-network-usage-and-build-stability.md).

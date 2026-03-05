@@ -1,0 +1,9 @@
+{
+  "name": "modern-remote-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/modern-e2e/src",
+  "implicitDependencies": ["modern-remote"],
+  "// targets": "to see all targets run: nx show project modern-remote-e2e --web",
+  "targets": {}
+}

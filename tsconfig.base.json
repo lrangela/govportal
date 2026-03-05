@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@gov/domain": ["libs/src/index.ts"],
+      "@gov/data-access": ["libs/data-access/src/index.ts"],
+      "@gov/data-access/legacy": ["libs/data-access/legacy/src/index.ts"],
+      "@gov/data-access/gov": ["libs/data-access/gov/src/index.ts"],
+      "@gov/core": ["libs/core/src/index.ts"],
+      "@gov/core/http": ["libs/core/http/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
