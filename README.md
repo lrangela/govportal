@@ -104,10 +104,20 @@ Las decisiones de diseño técnico y sus justificaciones formales se encuentran 
 ---
 
 ## CI/CD
-El pipeline de GitHub Actions compila únicamente el código afectado:
+El pipeline de integración continua corre sobre GitHub Actions utilizando el motor de Nx.
 1. `npm run lint`: Validación de fronteras mediante ESLint.
 2. `npm run test`: Pruebas unitarias de subsegundo de Vitest.
-3. `npm run build`: Compilación de producción incremental.
+3. `npm run build`: Compilación de producción incremental de los remotos y la shell.
+
+## Deployment
+La entrega continua está automatizada en GitHub Actions (`ci.yml`) y se activa en cada push a la rama `main`. El flujo ejecuta un despliegue estático sobre **GitHub Pages**:
+
+1.  **Compilación Dinámica**: Compila el host `shell` y los remotos (`legacy-remote`, `modern-remote`) usando perfiles de producción.
+2.  **Ensamblado del Sitio (Staging)**: Consolida los bundles compilados dentro de un único directorio de salida (`out/`), anidando los remotos en `out/legacy/` y `out/modern/`.
+3.  **Patching en Runtime de Native Federation**: Ejecuta un script en Node.js que reescribe `out/federation.manifest.json` para alinear las referencias de carga a rutas relativas (`./legacy/remoteEntry.json`).
+4.  **Ajuste de Base Href**: Modifica el tag `<base href>` en todos los archivos `index.html` generados para coincidir con la subruta del repositorio gubernamental.
+5.  **Mock API Export**: Genera una exportación estática de la base de datos simulada en formato JSON para eliminar la necesidad de un servidor backend activo.
+6.  **Soporte SPA (404 Fallback)**: Duplica el archivo `index.html` como `404.html` en las raíces correspondientes para asegurar que el enrutamiento interno de Angular funcione sin errores 404 al recargar el navegador en hosts estáticos.
 
 ---
 
