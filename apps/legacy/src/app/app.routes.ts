@@ -1,5 +1,6 @@
 import { Route } from '@angular/router';
 
+
 export const legacyRoutes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'citizens' },
     {
@@ -29,6 +30,6 @@ export const legacyRoutes: Route[] = [
 export const appRoutes: Route[] = [
     {
         path: '',
-        children: legacyRoutes
-    }
+        children: legacyRoutes,
+    },
 ];
