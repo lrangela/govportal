@@ -7,7 +7,7 @@ import {
     type LegacyCitizensResult,
 } from './legacy-citizens-api.client';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class CitizensFacade {
     private readonly api = inject(LegacyCitizensApiClient);
     private readonly reloadTick = signal(0);

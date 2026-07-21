@@ -1,28 +1,28 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
     selector: 'app-page-header',
+    standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [],
     template: `
-    <header style="display:flex; align-items:center; justify-content:space-between; gap: 12px;">
-      <h2 style="margin:0;">{{ title() }}</h2>
+    <header class="gov-page-header">
+      <h2 class="gov-page-header__title">{{ title }}</h2>
 
-      <!-- preparado para Legacy vs Modern -->
-      <label style="display:flex; align-items:center; gap: 8px;">
-        <span>Source</span>
-        <select [value]="source()" (change)="onSourceChange($event)" style="padding: 6px;">
-          <option value="legacy">Legacy</option>
-          <option value="modern">Modern</option>
+      <label class="gov-page-header__selector">
+        <span>Arquitectura:</span>
+        <select [value]="source" (change)="onSourceChange($event)" aria-label="Seleccionar arquitectura de fuente de datos">
+          <option value="legacy">Legacy (RxJS / Facade)</option>
+          <option value="modern">Modern (NgRx Signals)</option>
         </select>
       </label>
     </header>
   `,
 })
 export class PageHeaderComponent {
-    readonly title = input.required<string>();
-    readonly source = input.required<'legacy' | 'modern'>();
-    readonly sourceChange = output<'legacy' | 'modern'>();
+    @Input() title = '';
+    @Input() source: 'legacy' | 'modern' = 'legacy';
+    @Output() sourceChange = new EventEmitter<'legacy' | 'modern'>();
 
     onSourceChange(event: Event): void {
         const target = event.target as HTMLSelectElement;

@@ -9,5 +9,5 @@ import { RouterModule } from '@angular/router';
   styleUrl: './app.scss',
 })
 export class App {
-  protected title = 'modern-remote';
+  title = 'modern-remote';
 }

@@ -10,68 +10,72 @@ import { PageHeaderComponent } from '@gov/core';
   standalone: true,
   imports: [PageHeaderComponent, RouterLink],
   template: `
-    <section style="padding: 16px; display: grid; gap: 12px; max-width: 960px;">
-      <app-page-header title="Permits (Modern - NgRx Signals)" [source]="source()" (sourceChange)="onSourceChange($event)" />
+    <section class="gov-page">
+      <app-page-header title="Permisos (Modern - NgRx Signals)" [source]="source()" (sourceChange)="onSourceChange($event)" />
 
-
-      <div style="display:flex; gap: 8px; align-items:center;">
+      <div class="gov-form-row">
+        <label for="modern-permits-search">Buscar:</label>
         <input
+          id="modern-permits-search"
           type="search"
-          placeholder="Search by ID, citizen, type, region..."
+          class="gov-input"
+          placeholder="Buscar por ID, ciudadano, tipo, región..."
           [value]="store.q()"
           (input)="onSearch($event)"
-          style="flex:1; padding: 8px;"
+          aria-label="Buscar permisos por ID, ciudadano, tipo, o región"
         />
-        <button type="button" (click)="store.loadAll()" style="padding: 8px 12px;">
-          Refresh
+        <button type="button" class="gov-button" (click)="store.loadAll()">
+          Actualizar
         </button>
       </div>
 
       @if (store.isLoading()) {
-        <p>Loading permits...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando permisos...</p>
       }
 
       @if (store.error()) {
-        <p style="color:#b00020;">{{ store.error() }}</p>
+        <p role="alert" class="gov-status gov-status--error">{{ store.error() }}</p>
       }
 
       @if (!store.isLoading() && !store.error()) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">ID</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Citizen</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Type</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Region</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (permit of store.filteredItems(); track permit.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Listado Moderno de Permisos">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.id }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                  <a [routerLink]="['/modern/citizens', permit.citizenId]" style="color: #0066cc; text-decoration: underline;">{{ permit.citizenId }}</a>
-                </td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.type }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.status }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.region }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.createdAt }}</td>
+                <th scope="col">ID</th>
+                <th scope="col">Ciudadano</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Región</th>
+                <th scope="col">Fecha Registro</th>
               </tr>
-            } @empty {
-              <tr><td colspan="6" style="padding: 16px; text-align:center;">No results found.</td></tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (permit of store.filteredItems(); track permit.id) {
+                <tr>
+                  <td>{{ permit.id }}</td>
+                  <td>
+                    <a [routerLink]="['/modern/citizens', permit.citizenId]" class="gov-link">{{ permit.citizenId }}</a>
+                  </td>
+                  <td>{{ permit.type }}</td>
+                  <td><span class="gov-badge">{{ permit.status }}</span></td>
+                  <td>{{ permit.region }}</td>
+                  <td>{{ permit.createdAt }}</td>
+                </tr>
+              } @empty {
+                <tr><td colspan="6" class="gov-table__empty">No se encontraron permisos.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
 
-        <footer style="display:flex; align-items:center; justify-content:space-between; margin-top: 12px;">
-          <div style="display:flex; gap: 8px;">
-            <button (click)="store.setPage(store.page() - 1)" [disabled]="store.page() === 1">Prev</button>
-            <span>Page {{ store.page() }}</span>
-            <button (click)="store.setPage(store.page() + 1)" [disabled]="(store.page() * store.limit()) >= store.totalFiltered()">Next</button>
+        <footer class="gov-pagination">
+          <div class="gov-pagination__controls">
+            <button type="button" class="gov-button" (click)="store.setPage(store.page() - 1)" [disabled]="store.page() === 1" aria-label="Página anterior">Anterior</button>
+            <span>Página {{ store.page() }}</span>
+            <button type="button" class="gov-button" (click)="store.setPage(store.page() + 1)" [disabled]="(store.page() * store.limit()) >= store.totalFiltered()" aria-label="Página siguiente">Siguiente</button>
           </div>
-          <div>Total: {{ store.totalFiltered() }}</div>
+          <div>Total filtrado: {{ store.totalFiltered() }}</div>
         </footer>
       }
     </section>

@@ -8,84 +8,89 @@ import { PageHeaderComponent } from '@gov/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PageHeaderComponent, RouterLink],
   template: `
-    <section style="padding: 16px; display: grid; gap: 12px; max-width: 960px;">
-      <app-page-header title="Permits" [source]="source()" (sourceChange)="onSourceChange($event)" />
+    <section class="gov-page">
+      <app-page-header title="Permisos (Legacy API)" [source]="source()" (sourceChange)="onSourceChange($event)" />
 
-      <div style="display:flex; gap: 8px; align-items:center;">
+      <div class="gov-form-row">
+        <label for="permits-search">Buscar:</label>
         <input
+          id="permits-search"
           type="search"
-           placeholder="Search (q)..."
+          class="gov-input"
+          placeholder="Buscar permisos..."
           [value]="search()"
           (input)="onSearchInput($event)"
-          style="flex:1; padding: 8px;"
+          aria-label="Buscar permisos"
         />
-        <button type="button" (click)="facade.refresh()" style="padding: 8px 12px;">
-          Refresh
+        <button type="button" class="gov-button" (click)="facade.refresh()">
+          Actualizar
         </button>
       </div>
 
       @if (facade.isLoading()) {
-        <p>Loading...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando permisos...</p>
       }
 
       @if (facade.error()) {
-        <p style="color:#b00020;">
-          Error loading permits.
-          <button type="button" (click)="facade.refresh()" style="margin-left:8px;">Retry</button>
+        <p role="alert" class="gov-status gov-status--error">
+          Error al cargar los permisos.
+          <button type="button" class="gov-button gov-button--small" (click)="facade.refresh()">Reintentar</button>
         </p>
       }
 
       @if (facade.isEmpty()) {
-        <p>No results.</p>
+        <p role="status" class="gov-status gov-status--empty">No se encontraron resultados.</p>
       }
 
       @if (!facade.isLoading() && !facade.error() && facade.permits().length) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">ID</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Citizen</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Type</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Region</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (permit of facade.permits(); track permit.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Listado de Permisos">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.id }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                  <a [routerLink]="['/legacy/citizens', permit.citizenId]" style="color: #0066cc; text-decoration: underline;">{{ permit.citizenId }}</a>
-                </td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.type }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.status }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.region }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.createdAt }}</td>
+                <th scope="col">ID</th>
+                <th scope="col">Ciudadano</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Región</th>
+                <th scope="col">Fecha Registro</th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (permit of facade.permits(); track permit.id) {
+                <tr>
+                  <td>{{ permit.id }}</td>
+                  <td>
+                    <a [routerLink]="['/legacy/citizens', permit.citizenId]" class="gov-link">{{ permit.citizenId }}</a>
+                  </td>
+                  <td>{{ permit.type }}</td>
+                  <td><span class="gov-badge">{{ permit.status }}</span></td>
+                  <td>{{ permit.region }}</td>
+                  <td>{{ permit.createdAt }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
 
-      <footer style="display:flex; align-items:center; justify-content:space-between; gap: 12px;">
-        <div>
-          <button type="button" (click)="prevPage()" [disabled]="facade.page() <= 1" style="padding: 6px 10px;">
-            Prev
+      <footer class="gov-pagination">
+        <div class="gov-pagination__controls">
+          <button type="button" class="gov-button" (click)="prevPage()" [disabled]="facade.page() <= 1" aria-label="Página anterior">
+            Anterior
           </button>
-          <button type="button" (click)="nextPage()" [disabled]="!canNext()" style="padding: 6px 10px; margin-left:8px;">
-            Next
+          <button type="button" class="gov-button" (click)="nextPage()" [disabled]="!canNext()" aria-label="Página siguiente">
+            Siguiente
           </button>
         </div>
 
-        <div style="display:flex; align-items:center; gap: 8px;">
-          <span>Page {{ facade.page() }}</span>
+        <div class="gov-pagination__info">
+          <span>Página {{ facade.page() }}</span>
           <span>•</span>
           <span>Total {{ facade.total() }}</span>
           <span>•</span>
-          <label style="display:flex; align-items:center; gap: 6px;">
-            <span>Page size</span>
-            <select [value]="facade.limit()" (change)="onLimitChange($event)" style="padding: 6px;">
+          <label class="gov-pagination__limit">
+            <span>Tamaño:</span>
+            <select [value]="facade.limit()" (change)="onLimitChange($event)" aria-label="Seleccionar cantidad de elementos por página">
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>

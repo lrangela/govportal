@@ -5,7 +5,7 @@ import type { Permit } from '@gov/domain';
 import { LegacyPermitsApiClient } from './legacy-permits-api.client';
 import { mapLegacyPermit } from './legacy-permit.mapper';
 
-@Injectable({ providedIn: 'any' })
+@Injectable()
 export class PermitsFacade {
     private readonly api = inject(LegacyPermitsApiClient);
     private readonly reloadTick = signal(0);

@@ -37,6 +37,16 @@ export default [
       '**/*.mjs',
     ],
     // Override or add rules here
-    rules: {},
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+      '@typescript-eslint/explicit-member-accessibility': [
+        'off',
+        { accessibility: 'no-public' },
+      ],
+      'no-console': ['warn', { allow: ['warn', 'error'] }],
+    },
   },
 ];

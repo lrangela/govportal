@@ -8,92 +8,97 @@ import { PageHeaderComponent } from '@gov/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [PageHeaderComponent, RouterLink],
   template: `
-    <section style="padding: 16px; display: grid; gap: 12px; max-width: 960px;">
-      <app-page-header title="Applications" [source]="source()" (sourceChange)="onSourceChange($event)" />
+    <section class="gov-page">
+      <app-page-header title="Solicitudes (Legacy API)" [source]="source()" (sourceChange)="onSourceChange($event)" />
 
-      <div style="display:flex; gap: 8px; align-items:center;">
+      <div class="gov-form-row">
+        <label for="app-search">Buscar:</label>
         <input
+          id="app-search"
           type="search"
-          placeholder="Search applications..."
+          class="gov-input"
+          placeholder="Buscar solicitudes..."
           [value]="search()"
           (input)="onSearchInput($event)"
-          style="flex:1; padding: 8px;"
+          aria-label="Buscar solicitudes"
         />
-        <button type="button" (click)="facade.refresh()" style="padding: 8px 12px;">
-          Refresh
+        <button type="button" class="gov-button" (click)="facade.refresh()">
+          Actualizar
         </button>
       </div>
 
       @if (facade.isLoading()) {
-        <p>Loading...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando solicitudes...</p>
       }
 
       @if (facade.error()) {
-        <p style="color:#b00020;">
-          Error loading applications.
-          <button type="button" (click)="facade.refresh()" style="margin-left:8px;">Retry</button>
+        <p role="alert" class="gov-status gov-status--error">
+          Error al cargar las solicitudes.
+          <button type="button" class="gov-button gov-button--small" (click)="facade.refresh()">Reintentar</button>
         </p>
       }
 
       @if (facade.isEmpty()) {
-        <p>No results.</p>
+        <p role="status" class="gov-status gov-status--empty">No se encontraron resultados.</p>
       }
 
       @if (!facade.isLoading() && !facade.error() && facade.applications().length) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">ID</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Citizen</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Permit</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Region</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Created</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Updated</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (application of facade.applications(); track application.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Listado de Solicitudes">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ application.id }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                  <a [routerLink]="['/legacy/citizens', application.citizenId]" style="color: #0066cc; text-decoration: underline;">{{ application.citizenId }}</a>
-                </td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                  @if (application.permitId) {
-                    <a [routerLink]="['/legacy/permits']" [queryParams]="{ q: application.permitId }" style="color: #0066cc; text-decoration: underline;">{{ application.permitId }}</a>
-                  } @else {
-                    -
-                  }
-                </td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ application.region }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ application.status }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ application.createdAt }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ application.updatedAt }}</td>
+                <th scope="col">ID</th>
+                <th scope="col">Ciudadano</th>
+                <th scope="col">Permiso</th>
+                <th scope="col">Región</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Creado</th>
+                <th scope="col">Actualizado</th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (application of facade.applications(); track application.id) {
+                <tr>
+                  <td>{{ application.id }}</td>
+                  <td>
+                    <a [routerLink]="['/legacy/citizens', application.citizenId]" class="gov-link">{{ application.citizenId }}</a>
+                  </td>
+                  <td>
+                    @if (application.permitId) {
+                      <a [routerLink]="['/legacy/permits']" [queryParams]="{ q: application.permitId }" class="gov-link">{{ application.permitId }}</a>
+                    } @else {
+                      -
+                    }
+                  </td>
+                  <td>{{ application.region }}</td>
+                  <td><span class="gov-badge">{{ application.status }}</span></td>
+                  <td>{{ application.createdAt }}</td>
+                  <td>{{ application.updatedAt }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
 
-      <footer style="display:flex; align-items:center; justify-content:space-between; gap: 12px;">
-        <div>
-          <button type="button" (click)="prevPage()" [disabled]="facade.page() <= 1" style="padding: 6px 10px;">
-            Prev
+      <footer class="gov-pagination">
+        <div class="gov-pagination__controls">
+          <button type="button" class="gov-button" (click)="prevPage()" [disabled]="facade.page() <= 1" aria-label="Página anterior">
+            Anterior
           </button>
-          <button type="button" (click)="nextPage()" [disabled]="!canNext()" style="padding: 6px 10px; margin-left:8px;">
-            Next
+          <button type="button" class="gov-button" (click)="nextPage()" [disabled]="!canNext()" aria-label="Página siguiente">
+            Siguiente
           </button>
         </div>
 
-        <div style="display:flex; align-items:center; gap: 8px;">
-          <span>Page {{ facade.page() }}</span>
+        <div class="gov-pagination__info">
+          <span>Página {{ facade.page() }}</span>
           <span>•</span>
           <span>Total {{ facade.total() }}</span>
           <span>•</span>
-          <label style="display:flex; align-items:center; gap: 6px;">
-            <span>Page size</span>
-            <select [value]="facade.limit()" (change)="onLimitChange($event)" style="padding: 6px;">
+          <label class="gov-pagination__limit">
+            <span>Tamaño:</span>
+            <select [value]="facade.limit()" (change)="onLimitChange($event)" aria-label="Seleccionar cantidad de elementos por página">
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>

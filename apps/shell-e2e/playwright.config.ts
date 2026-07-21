@@ -19,16 +19,23 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     baseURL,
+    actionTimeout: 10000,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npx nx run shell:serve',
-  //   url: 'http://localhost:4200',
-  //   reuseExistingServer: true,
-  //   cwd: workspaceRoot,
-  // },
+  expect: {
+    timeout: 10000,
+  },
+  /* Run the full E2E stack (mock API + shell + legacy + modern) before starting the tests.
+   * If the stack is already running (e.g. via `npm run dev:e2e-stack`), Playwright will reuse it.
+   * The mock API must be reachable on localhost:3001 before the shell starts serving pages. */
+  webServer: {
+    command: 'npm run dev:e2e-stack',
+    url: 'http://localhost:4200',
+    reuseExistingServer: true,
+    cwd: workspaceRoot,
+    timeout: 180000,
+  },
   projects: [
     {
       name: 'chromium',

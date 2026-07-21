@@ -7,62 +7,66 @@ import { CitizensFacade, PermitsFacade, ApplicationsFacade } from '@gov/data-acc
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [RouterLink],
     template: `
-    <section style="padding: 16px; display: grid; gap: 12px; max-width: 960px;">
-      <a routerLink="..">Back to citizens</a>
+    <section class="gov-detail">
+      <a routerLink=".." class="gov-link">← Volver al listado de ciudadanos</a>
 
-      <header>
-        <h2 style="margin:0;">Citizen detail</h2>
-        <p style="margin:4px 0 0 0; color:#555;">Id: {{ citizenId() }}</p>
+      <header class="gov-detail__header">
+        <h2 class="gov-detail__title">Detalle del Ciudadano</h2>
+        <p class="gov-detail__subtitle">ID: {{ citizenId() }}</p>
       </header>
 
-      <h3 style="margin:0;">Permits relacionados</h3>
-      @if (permitsFacade.isLoading()) { <p>Loading permits...</p> }
-      @if (!permitsFacade.isLoading() && relatedPermits().length === 0) { <p>No permits.</p> }
+      <h3 class="gov-detail__section-title">Permisos Relacionados</h3>
+      @if (permitsFacade.isLoading()) { <p role="status" class="gov-status gov-status--loading">Cargando permisos...</p> }
+      @if (!permitsFacade.isLoading() && relatedPermits().length === 0) { <p role="status" class="gov-status gov-status--empty">No posee permisos registrados.</p> }
 
       @if (!permitsFacade.isLoading() && relatedPermits().length) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Id</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Type</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (p of relatedPermits(); track p.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Permisos relacionados del ciudadano">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ p.id }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ p.type }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ p.status }}</td>
+                <th scope="col">ID</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Estado</th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (p of relatedPermits(); track p.id) {
+                <tr>
+                  <td>{{ p.id }}</td>
+                  <td>{{ p.type }}</td>
+                  <td><span class="gov-badge">{{ p.status }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
 
-      <h3 style="margin:0;">Applications relacionadas</h3>
-      @if (appsFacade.isLoading()) { <p>Loading applications...</p> }
-      @if (!appsFacade.isLoading() && relatedApplications().length === 0) { <p>No applications.</p> }
+      <h3 class="gov-detail__section-title">Solicitudes Relacionadas</h3>
+      @if (appsFacade.isLoading()) { <p role="status" class="gov-status gov-status--loading">Cargando solicitudes...</p> }
+      @if (!appsFacade.isLoading() && relatedApplications().length === 0) { <p role="status" class="gov-status gov-status--empty">No posee solicitudes registradas.</p> }
 
       @if (!appsFacade.isLoading() && relatedApplications().length) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Id</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Type</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (a of relatedApplications(); track a.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Solicitudes relacionadas del ciudadano">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ a.id }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ a.status }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ a.region }}</td>
+                <th scope="col">ID</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Región</th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (a of relatedApplications(); track a.id) {
+                <tr>
+                  <td>{{ a.id }}</td>
+                  <td><span class="gov-badge">{{ a.status }}</span></td>
+                  <td>{{ a.region }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
     </section>
   `,

@@ -8,83 +8,88 @@ import { PageHeaderComponent } from '@gov/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, PageHeaderComponent],
   template: `
-    <section style="padding: 16px; display: grid; gap: 12px; max-width: 960px;">
-      <app-page-header title="Citizens" [source]="source()" (sourceChange)="onSourceChange($event)" />
+    <section class="gov-page">
+      <app-page-header title="Ciudadanos (Legacy API)" [source]="source()" (sourceChange)="onSourceChange($event)" />
 
-      <div style="display:flex; gap: 8px; align-items:center;">
+      <div class="gov-form-row">
+        <label for="citizen-search">Buscar:</label>
         <input
+          id="citizen-search"
           type="search"
-          placeholder="Search (q)..."
+          class="gov-input"
+          placeholder="Filtrar por nombre o documento..."
           [value]="search()"
           (input)="onSearchInput($event)"
-          style="flex:1; padding: 8px;"
+          aria-label="Buscar ciudadano por nombre o número de documento"
         />
-        <button type="button" (click)="facade.refresh()" style="padding: 8px 12px;">
-          Refresh
+        <button type="button" class="gov-button" (click)="facade.refresh()">
+          Actualizar
         </button>
       </div>
 
       <!-- estados -->
       @if (facade.isLoading()) {
-        <p>Loading...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando registro de ciudadanos...</p>
       }
 
       @if (facade.error()) {
-        <p style="color:#b00020;">
-          Error loading citizens.
-          <button type="button" (click)="facade.refresh()" style="margin-left:8px;">Retry</button>
+        <p role="alert" class="gov-status gov-status--error">
+          Error al cargar los datos del servicio legacy.
+          <button type="button" class="gov-button gov-button--small" (click)="facade.refresh()">Reintentar</button>
         </p>
       }
 
       @if (facade.isEmpty()) {
-        <p>No results.</p>
+        <p role="status" class="gov-status gov-status--empty">No se encontraron ciudadanos que coincidan con la búsqueda.</p>
       }
 
       <!-- tabla -->
       @if (!facade.isLoading() && !facade.error() && facade.citizens().length) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Name</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Document</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Created</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (c of facade.citizens(); track c.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Listado de Ciudadanos">
+            <thead>
+              <tr>
+                <th scope="col">Nombre Completo</th>
+                <th scope="col">Documento</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Fecha Registro</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (c of facade.citizens(); track c.id) {
                 <tr>
-                  <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                    <a [routerLink]="[c.id]">{{ c.fullName }}</a>
+                  <td>
+                    <a [routerLink]="[c.id]" class="gov-link">{{ c.fullName }}</a>
                   </td>
-                  <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ c.documentNumber }}</td>
-                  <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ c.status }}</td>
-                  <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ c.createdAt }}</td>
+                  <td>{{ c.documentNumber }}</td>
+                  <td><span class="gov-badge">{{ c.status }}</span></td>
+                  <td>{{ c.createdAt }}</td>
                 </tr>
-            }
-          </tbody>
-        </table>
+              }
+            </tbody>
+          </table>
+        </div>
       }
 
       <!-- paginación simple -->
-      <footer style="display:flex; align-items:center; justify-content:space-between; gap: 12px;">
-        <div>
-          <button type="button" (click)="prevPage()" [disabled]="facade.page() <= 1" style="padding: 6px 10px;">
-            Prev
+      <footer class="gov-pagination">
+        <div class="gov-pagination__controls">
+          <button type="button" class="gov-button" (click)="prevPage()" [disabled]="facade.page() <= 1" aria-label="Página anterior">
+            Anterior
           </button>
-          <button type="button" (click)="nextPage()" [disabled]="!canNext()" style="padding: 6px 10px; margin-left:8px;">
-            Next
+          <button type="button" class="gov-button" (click)="nextPage()" [disabled]="!canNext()" aria-label="Página siguiente">
+            Siguiente
           </button>
         </div>
 
-        <div style="display:flex; align-items:center; gap: 8px;">
-          <span>Page {{ facade.page() }}</span>
+        <div class="gov-pagination__info">
+          <span>Página {{ facade.page() }}</span>
           <span>•</span>
           <span>Total {{ facade.total() }}</span>
           <span>•</span>
-          <label style="display:flex; align-items:center; gap: 6px;">
-            <span>Page size</span>
-            <select [value]="facade.limit()" (change)="onLimitChange($event)" style="padding: 6px;">
+          <label class="gov-pagination__limit">
+            <span>Tamaño:</span>
+            <select [value]="facade.limit()" (change)="onLimitChange($event)" aria-label="Seleccionar cantidad de elementos por página">
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="20">20</option>

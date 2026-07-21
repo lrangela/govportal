@@ -8,87 +8,91 @@ import { PageHeaderComponent } from '@gov/core';
   selector: 'app-citizen-detail',
   imports: [RouterLink, PageHeaderComponent],
   template: `
-    <section style="padding: 16px; display: grid; gap: 12px; max-width: 960px;">
-      <a routerLink=".." style="color: #0066cc; text-decoration: none;">&larr; Back to citizens</a>
+    <section class="gov-detail">
+      <a routerLink=".." class="gov-link">← Volver a ciudadanos</a>
 
-      <header style="margin-top: 8px;">
-        <app-page-header title="Citizen Detail (Modern)" [source]="source()" (sourceChange)="onSourceChange($event)" />
-        <p style="margin:4px 0 0 0; color:#555;">Id: {{ citizenId() }}</p>
+      <header class="gov-detail__header">
+        <app-page-header title="Detalle de Ciudadano (Modern)" [source]="source()" (sourceChange)="onSourceChange($event)" />
+        <p class="gov-detail__subtitle">Id: {{ citizenId() }}</p>
         @if (citizen(); as currentCitizen) {
-          <p style="margin:4px 0 0 0; color:#555; font-weight: bold;">
+          <p class="gov-detail__subtitle gov-detail__subtitle--strong">
             {{ currentCitizen.fullName }} - {{ currentCitizen.documentNumber }}
           </p>
         }
       </header>
 
       @if (citizensStore.isLoading()) {
-        <p>Loading citizen...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando ciudadano...</p>
       }
 
       @if (!citizensStore.isLoading() && !citizen()) {
-        <p style="color:#b00020;">Citizen not found.</p>
+        <p role="alert" class="gov-status gov-status--error">Ciudadano no encontrado.</p>
       }
 
-      <h3 style="margin-top: 16px; margin-bottom: 0;">Related permits</h3>
+      <h3 class="gov-detail__section-title">Permisos Relacionados</h3>
       @if (permitsStore.isLoading()) {
-        <p>Loading permits...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando permisos...</p>
       }
       @if (!permitsStore.isLoading() && relatedPermits().length === 0) {
-        <p>No permits.</p>
+        <p role="status" class="gov-status gov-status--empty">No posee permisos registrados.</p>
       }
 
       @if (!permitsStore.isLoading() && relatedPermits().length) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Id</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Type</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (permit of relatedPermits(); track permit.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Permisos relacionados del ciudadano">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                  <a [routerLink]="['/modern/permits']" [queryParams]="{ q: permit.id }" style="color: #0066cc; text-decoration: underline;">{{ permit.id }}</a>
-                </td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.type }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ permit.status }}</td>
+                <th scope="col">Id</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Estado</th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (permit of relatedPermits(); track permit.id) {
+                <tr>
+                  <td>
+                    <a [routerLink]="['/modern/permits']" [queryParams]="{ q: permit.id }" class="gov-link">{{ permit.id }}</a>
+                  </td>
+                  <td>{{ permit.type }}</td>
+                  <td><span class="gov-badge">{{ permit.status }}</span></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
 
-      <h3 style="margin-top: 16px; margin-bottom: 0;">Related applications</h3>
+      <h3 class="gov-detail__section-title">Solicitudes Relacionadas</h3>
       @if (applicationsStore.isLoading()) {
-        <p>Loading applications...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando solicitudes...</p>
       }
       @if (!applicationsStore.isLoading() && relatedApplications().length === 0) {
-        <p>No applications.</p>
+        <p role="status" class="gov-status gov-status--empty">No posee solicitudes registradas.</p>
       }
 
       @if (!applicationsStore.isLoading() && relatedApplications().length) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Id</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Region</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (application of relatedApplications(); track application.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Solicitudes relacionadas del ciudadano">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                  <a [routerLink]="['/modern/applications']" [queryParams]="{ q: application.id }" style="color: #0066cc; text-decoration: underline;">{{ application.id }}</a>
-                </td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ application.status }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ application.region }}</td>
+                <th scope="col">Id</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Región</th>
               </tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (application of relatedApplications(); track application.id) {
+                <tr>
+                  <td>
+                    <a [routerLink]="['/modern/applications']" [queryParams]="{ q: application.id }" class="gov-link">{{ application.id }}</a>
+                  </td>
+                  <td><span class="gov-badge">{{ application.status }}</span></td>
+                  <td>{{ application.region }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
       }
     </section>
   `,

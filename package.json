@@ -6,8 +6,15 @@
     "dev:db": "tsx tools/mock-api/generate-db.ts",
     "dev:api": "json-server tools/mock-api/db.json --port 3001",
     "dev:mock": "npm run dev:db && npm run dev:api",
-    "start:mfes": "npx nx run-many --target=serve --projects=shell,legacy-remote,modern-remote",
-    "e2e": "concurrently -k -n API,SHELL,LEGACY,MODERN \"npm run dev:mock\" \"nx serve shell\" \"nx serve legacy\" \"nx serve modern\""
+    "serve:mfes": "npx nx run-many --target=serve --projects=shell,legacy-remote,modern-remote",
+    "e2e": "nx run-many -t e2e --all",
+    "e2e:shell": "nx e2e shell-e2e",
+    "e2e:modern": "nx e2e modern-remote-e2e",
+    "dev:e2e-stack": "concurrently -k -n API,SHELL,LEGACY,MODERN \"npm run dev:mock\" \"nx serve shell\" \"nx serve legacy-remote\" \"nx serve modern-remote\"",
+    "lint": "nx run-many -t eslint:lint --all",
+    "test": "nx run-many -t test --all",
+    "build": "nx run-many -t build --all",
+    "typecheck": "tsc --noEmit -p tsconfig.base.json"
   },
   "private": true,
   "dependencies": {

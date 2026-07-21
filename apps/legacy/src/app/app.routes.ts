@@ -1,9 +1,12 @@
 import { Route } from '@angular/router';
-import { CitizensListPage } from './citizens/citizens-list.page';
 
 export const legacyRoutes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'citizens' },
-    { path: 'citizens', component: CitizensListPage },
+    {
+        path: 'citizens',
+        loadComponent: () =>
+            import('./citizens/citizens-list.page').then((m) => m.CitizensListPage),
+    },
     {
         path: 'citizens/:id',
         loadComponent: () =>

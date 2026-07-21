@@ -9,64 +9,68 @@ import { PageHeaderComponent } from '@gov/core';
   selector: 'app-citizens-list',
   imports: [RouterLink, PageHeaderComponent],
   template: `
-    <section style="padding: 16px; display: grid; gap: 12px; max-width: 960px;">
-      <app-page-header title="Citizens (Modern - NgRx Signals)" [source]="source()" (sourceChange)="onSourceChange($event)" />
+    <section class="gov-page">
+      <app-page-header title="Ciudadanos (Modern - NgRx Signals)" [source]="source()" (sourceChange)="onSourceChange($event)" />
 
-
-      <div style="display:flex; gap: 8px; align-items:center;">
+      <div class="gov-form-row">
+        <label for="modern-citizen-search">Buscar:</label>
         <input
+          id="modern-citizen-search"
           type="search"
-          placeholder="Search by name or document..."
+          class="gov-input"
+          placeholder="Buscar por nombre o documento..."
           [value]="store.q()"
           (input)="onSearch($event)"
-          style="flex:1; padding: 8px;"
+          aria-label="Buscar ciudadano por nombre o número de documento"
         />
-        <button type="button" (click)="store.loadAll()" style="padding: 8px 12px;">
-          Refresh
+        <button type="button" class="gov-button" (click)="store.loadAll()">
+          Actualizar
         </button>
       </div>
 
       @if (store.isLoading()) {
-        <p>Loading citizens...</p>
+        <p role="status" class="gov-status gov-status--loading">Cargando registro de ciudadanos...</p>
       }
 
       @if (store.error()) {
-        <p style="color:#b00020;">{{ store.error() }}</p>
+        <p role="alert" class="gov-status gov-status--error">{{ store.error() }}</p>
       }
 
       @if (!store.isLoading() && !store.error()) {
-        <table style="width:100%; border-collapse: collapse;">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Name</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Document</th>
-              <th style="text-align:left; border-bottom: 1px solid #ddd; padding: 8px;">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (c of store.filteredItems(); track c.id) {
+        <div class="table-responsive">
+          <table class="gov-table" aria-label="Listado Moderno de Ciudadanos">
+            <thead>
               <tr>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                  <a [routerLink]="[c.id]">{{ c.fullName }}</a>
-                </td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">{{ c.documentNumber }}</td>
-                <td style="border-bottom: 1px solid #f0f0f0; padding: 8px;">
-                   <span [style.color]="c.status === 'active' ? 'green' : 'red'">{{ c.status }}</span>
-                </td>
+                <th scope="col">Nombre Completo</th>
+                <th scope="col">Documento</th>
+                <th scope="col">Estado</th>
               </tr>
-            } @empty {
-              <tr><td colspan="3" style="padding: 16px; text-align:center;">No results found.</td></tr>
-            }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              @for (c of store.filteredItems(); track c.id) {
+                <tr>
+                  <td>
+                    <a [routerLink]="[c.id]" class="gov-link">{{ c.fullName }}</a>
+                  </td>
+                  <td>{{ c.documentNumber }}</td>
+                  <td>
+                    <span class="gov-badge" [class.gov-badge--modern]="c.status === 'active'">{{ c.status }}</span>
+                  </td>
+                </tr>
+              } @empty {
+                <tr><td colspan="3" class="gov-table__empty">No se encontraron ciudadanos.</td></tr>
+              }
+            </tbody>
+          </table>
+        </div>
 
-        <footer style="display:flex; align-items:center; justify-content:space-between; margin-top: 12px;">
-          <div style="display:flex; gap: 8px;">
-            <button (click)="store.setPage(store.page() - 1)" [disabled]="store.page() === 1">Prev</button>
-            <span>Page {{ store.page() }}</span>
-            <button (click)="store.setPage(store.page() + 1)" [disabled]="(store.page() * store.limit()) >= store.totalFiltered()">Next</button>
+        <footer class="gov-pagination">
+          <div class="gov-pagination__controls">
+            <button type="button" class="gov-button" (click)="store.setPage(store.page() - 1)" [disabled]="store.page() === 1" aria-label="Página anterior">Anterior</button>
+            <span>Página {{ store.page() }}</span>
+            <button type="button" class="gov-button" (click)="store.setPage(store.page() + 1)" [disabled]="(store.page() * store.limit()) >= store.totalFiltered()" aria-label="Página siguiente">Siguiente</button>
           </div>
-          <div>Total: {{ store.totalFiltered() }}</div>
+          <div>Total filtrado: {{ store.totalFiltered() }}</div>
         </footer>
       }
     </section>

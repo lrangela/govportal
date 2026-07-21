@@ -5,7 +5,7 @@ import type { Application } from '@gov/domain';
 import { LegacyApplicationsApiClient } from './legacy-applications-api.client';
 import { mapLegacyApplication } from './legacy-application.mapper';
 
-@Injectable({ providedIn: 'any' })
+@Injectable()
 export class ApplicationsFacade {
     private readonly api = inject(LegacyApplicationsApiClient);
     private readonly reloadTick = signal(0);
