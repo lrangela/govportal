@@ -9,6 +9,29 @@ GovPortal es un proyecto de arquitectura frontend enterprise desarrollado con **
 
 ---
 
+## 🏢 ¿Qué es GovPortal?
+
+GovPortal es un **portal de servicios gubernamentales** que permite a funcionarios públicos consultar y gestionar tres entidades de dominio:
+
+| Entidad | Descripción | Propiedades principales |
+| :--- | :--- | :--- |
+| **Ciudadanos** | Registro de personas | Nombre, documento, estado (activo/inactivo), fecha de registro |
+| **Permisos** | Licencias y autorizaciones | Tipo (transporte/negocio/construcción), estado (pendiente/aprobado/rechazado), región, fechas |
+| **Solicitudes** | Trámites vinculando ciudadanos con permisos | Flujo de estados (borrador → enviado → en revisión → completado), región, fechas |
+
+### Funcionalidad visible para el usuario
+
+- Listar, buscar por nombre/documento y paginar ciudadanos.
+- Ver el detalle completo de un ciudadano individual.
+- Listar y explorar permisos y solicitudes con sus estados.
+- Alternar en caliente entre dos implementaciones de la misma vista mediante un selector de "arquitectura de fuente de datos": **Legacy (RxJS / Facade)** y **Modern (NgRx SignalStore)**. Ambas muestran los mismos datos pero con stacks internos completamente distintos, simulando una migración gradual real.
+
+### Origen de los datos
+
+Todos los datos provienen de una **API REST mock** servida por `json-server` y generada de forma determinista con `@faker-js/faker` (`tools/mock-api/generate-db.ts`). No hay backend real, autenticación ni persistencia.
+
+---
+
 ## 🎯 ¿Qué demuestra este proyecto para un rol Senior / Architect?
 
 1. **Arquitectura Micro-Frontends (Native Federation):** Orquestación de aplicaciones desacopladas (`shell` host + `legacy-remote` / `modern-remote`) compartiendo dependencias en runtime sin acoplamiento en build-time.
