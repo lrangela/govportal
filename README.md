@@ -83,7 +83,7 @@ npm install
 `npm run e2e` ejecuta las suites de Playwright. Cada suite levanta (o reutiliza) el servidor que necesita:
 
 - **`shell-e2e`**: requiere el stack completo. Su `webServer` ejecuta `npm run dev:e2e-stack`, que inicia la mock API (`3001`) y los tres MFes (`shell` en `4200`, `legacy-remote` en `4201`, `modern-remote` en `4202`). Si el stack ya está corriendo, Playwright lo reutiliza (`reuseExistingServer: true`).
-- **`modern-e2e`**: levanta `modern-remote:serve` en `http://localhost:4202`. El remoto moderno ahora también usa `proxy.conf.json` para redirigir `/api` al mock server en desarrollo.
+- **`modern-e2e`**: levanta la mock API (`3001`) y `modern-remote:serve` en `http://localhost:4202`. El remoto moderno usa `proxy.conf.json` para redirigir `/api` al mock server en desarrollo.
 
 Para depurar localmente:
 ```bash

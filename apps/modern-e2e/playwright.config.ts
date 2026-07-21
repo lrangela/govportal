@@ -22,9 +22,13 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
-  /* Run the modern remote dev server before starting the tests */
+  expect: {
+    timeout: 10000,
+  },
+  /* Run the mock API and the modern remote dev server before starting the tests.
+   * The modern remote proxies /api requests to the mock API via proxy.conf.json. */
   webServer: {
-    command: 'npx nx run modern-remote:serve',
+    command: 'concurrently -k -n API,MODERN "npm run dev:mock" "npx nx run modern-remote:serve"',
     url: 'http://localhost:4202',
     reuseExistingServer: true,
     cwd: workspaceRoot,

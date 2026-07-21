@@ -1,5 +1,9 @@
 import { Route } from '@angular/router';
-
+import {
+    CitizensFacade,
+    ApplicationsFacade,
+    PermitsFacade,
+} from '@gov/data-access/legacy';
 
 export const legacyRoutes: Route[] = [
     { path: '', pathMatch: 'full', redirectTo: 'citizens' },
@@ -30,6 +34,7 @@ export const legacyRoutes: Route[] = [
 export const appRoutes: Route[] = [
     {
         path: '',
+        providers: [CitizensFacade, PermitsFacade, ApplicationsFacade],
         children: legacyRoutes,
     },
 ];

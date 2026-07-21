@@ -33,6 +33,7 @@ test.describe('Modern Remote - Citizens List', () => {
     await searchbox.fill('zzzzzz');
 
     await expect(page.getByText('No se encontraron ciudadanos.')).toBeVisible();
-    await expect(table.getByRole('row')).toHaveCount(1); // only the empty row remains
+    // After filtering, no data rows with links should remain (header + empty row stay)
+    await expect(table.getByRole('link')).toHaveCount(0);
   });
 });
